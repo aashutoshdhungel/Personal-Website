@@ -9,7 +9,7 @@ import {
   IconPen,
   IconDna,
 } from '../components/Icons.jsx'
-import heroImg from '../assets/profile.png'
+import heroImg from '../assets/haha.jpg'
 import './Home.css'
 
 const stats = [

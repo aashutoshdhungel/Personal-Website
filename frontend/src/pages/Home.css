@@ -1,5 +1,5 @@
 .section-pad {
-  padding: 100px 0;
+  padding: 80px 0;
 }
 
 .hero {
@@ -79,7 +79,7 @@
 
 .hero__title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 5rem);
+  font-size: clamp(2.8rem, 6vw, 5rem);
   font-weight: 700;
   line-height: 1.05;
   color: var(--text-primary);
@@ -111,7 +111,7 @@
   align-items: center;
 }
 
-.hero__card-wrap {
+.hero__image-wrap {
   position: relative;
   width: 300px;
   height: 300px;
@@ -123,44 +123,19 @@
 
 .hero__pulse {
   position: absolute;
-  inset: 0;
+  inset: -20px;
   border-radius: 50%;
   border: 1px solid rgba(61, 214, 181, 0.3);
   animation: pulse-ring 3s ease-out infinite;
 }
 
-.hero__card {
+.hero__photo {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-teal-border);
   background: var(--bg-card);
-  border: 1px solid var(--border-accent);
-  border-radius: var(--radius);
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  text-align: center;
-  backdrop-filter: blur(10px);
-}
-
-.hero__emblem {
-  filter: drop-shadow(0 0 20px rgba(61, 214, 181, 0.4));
-}
-
-.hero__card-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  display: block;
-}
-
-.hero__card-value {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text-primary);
-  display: block;
 }
 
 .hero__stat-pill {
@@ -178,14 +153,21 @@
   white-space: nowrap;
 }
 
+.hero__stat-pill svg {
+  width: 14px;
+  height: 14px;
+  color: var(--accent-teal);
+  flex-shrink: 0;
+}
+
 .hero__stat-pill--1 {
-  top: 20px;
-  right: -20px;
+  top: 10px;
+  right: -24px;
 }
 
 .hero__stat-pill--2 {
-  bottom: 30px;
-  left: -20px;
+  bottom: 20px;
+  left: -24px;
 }
 
 .hero__stats {
@@ -196,6 +178,7 @@
   padding: 32px 24px;
   border-top: 1px solid var(--border);
   margin-top: auto;
+  flex-wrap: wrap;
 }
 
 .hero__stat {
@@ -268,6 +251,11 @@
   margin-bottom: 20px;
 }
 
+.interest-card__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
 .interest-card h3 {
   font-family: var(--font-display);
   font-size: 20px;
@@ -283,7 +271,7 @@
 }
 
 .cta-section {
-  padding: 100px 0;
+  padding: 80px 0;
 }
 
 .cta-box {
@@ -338,6 +326,8 @@
     grid-template-columns: 1fr;
     gap: 48px;
     text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 
   .hero__subtitle {
@@ -353,12 +343,26 @@
     order: -1;
   }
 
+  .hero__stat-pill--1 {
+    right: 0px;
+    top: -10px;
+  }
+
+  .hero__stat-pill--2 {
+    left: 0px;
+    bottom: -10px;
+  }
+
   .interests__grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 600px) {
+  .section-pad {
+    padding: 60px 0;
+  }
+
   .interests__grid {
     grid-template-columns: 1fr;
   }
@@ -369,5 +373,20 @@
 
   .hero__stats {
     gap: 24px;
+    padding: 24px 16px;
+  }
+
+  .hero__image-wrap {
+    width: 240px;
+    height: 240px;
+  }
+
+  .hero__photo {
+    width: 220px;
+    height: 220px;
+  }
+
+  .hero__stat-pill {
+    display: none;
   }
 }

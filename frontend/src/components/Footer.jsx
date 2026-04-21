@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import Icon from './Icon.jsx'
+import { IconGithub, IconLinkedin } from './Icons.jsx'
 import './Footer.css'
 
 function Footer() {
@@ -8,35 +8,32 @@ function Footer() {
       <div className="container footer__inner">
         <div className="footer__brand">
           <div className="footer__logo">
-            <svg width="24" height="24" viewBox="0 0 28 28">
-              <rect width="28" height="28" rx="6" fill="#0a1628"/>
-              <rect x="12" y="5" width="4" height="18" rx="1.5" fill="#3dd6b5"/>
-              <rect x="5" y="12" width="18" height="4" rx="1.5" fill="#3dd6b5"/>
-            </svg>
+             <img src="/favicon.png" width="24" height="20" viewBox="0 0 28 28" aria-hidden="true"/>
             <span>Aashutosh Dhungel</span>
           </div>
           <p className="footer__tagline">Aspiring Doctor · Writer · Dreamer from Nepal</p>
         </div>
 
-        <div className="footer__links">
+        <nav className="footer__links" aria-label="Footer navigation">
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/blog">Blog</Link>
           <Link to="/contact">Contact</Link>
-        </div>
+        </nav>
 
         <div className="footer__socials">
           <a href="https://github.com/aashutoshdhungel" target="_blank" rel="noreferrer" aria-label="GitHub">
-            <Icon id="github" />
+            <IconGithub />
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-            <Icon id="linkedin" />
+          <a href="https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <IconLinkedin />
           </a>
         </div>
       </div>
       <div className="footer__bottom">
-        <p>Crafted with care in Arjundhara, Nepal</p>
+        <p className='developer-credit'>Meet the Developer: <a href="https://prasant-bhattarai.com.np" target="_blank" rel="noreferrer">Prasant Bhattarai</a></p>
       </div>
+
     </footer>
   )
 }

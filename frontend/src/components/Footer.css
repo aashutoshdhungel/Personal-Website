@@ -79,3 +79,28 @@
   color: var(--text-muted);
   font-family: var(--font-mono);
 }
+
+.developer-credit {
+  padding: 16px 0;
+  text-align: center;
+}
+
+.developer-credit a {
+  color: whitesmoke;
+}
+
+.developer-credit a:hover {
+  color: var(--accent-teal);
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .footer__inner {
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .footer__socials {
+    flex-direction: row;
+  }
+}

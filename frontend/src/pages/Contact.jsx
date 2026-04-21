@@ -1,30 +1,45 @@
 import { useState } from 'react'
-import Icon from '../components/Icon.jsx'
+import SEO from '../components/SEO.jsx'
+import { IconPhone, IconMap, IconGithub, IconLinkedin, IconHeart, IconArrowRight } from '../components/Icons.jsx'
 import './Contact.css'
 
 const info = [
-  { icon: 'phone', label: 'Phone', value: '+977 9800000000', href: 'tel:9800000000' },
-  { icon: 'map', label: 'Location', value: 'Arjundhara, Jhapa, Nepal', href: null },
-  { icon: 'github', label: 'GitHub', value: 'github.com/aashutoshdhungel', href: 'https://github.com/aashutoshdhungel' },
-  { icon: 'linkedin', label: 'LinkedIn', value: 'linkedin.com', href: 'https://linkedin.com' },
+  { Icon: IconPhone, label: 'Phone', value: '+977 9800000000', href: 'tel:9800000000' },
+  { Icon: IconMap, label: 'Location', value: 'Arjundhara, Jhapa, Nepal', href: null },
+  { Icon: IconGithub, label: 'GitHub', value: 'github.com/aashutoshdhungel', href: 'https://github.com/aashutoshdhungel' },
+  { Icon: IconLinkedin, label: 'LinkedIn', value: 'linkedin.com', href: 'https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/' },
 ]
+
+const YOUR_EMAIL = 'aashutoshdhungel@example.com'
 
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState('idle')
 
   const handleChange = e => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  const isValid = form.name.trim() && form.email.trim() && form.message.trim()
+
+  const handleSubmit = () => {
+    if (!isValid) return
     const subject = encodeURIComponent(`Message from ${form.name}`)
     const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)
-    window.location.href = `mailto:aashutoshdhungel@example.com?subject=${subject}&body=${body}`
-    setSent(true)
+    window.open(`mailto:${YOUR_EMAIL}?subject=${subject}&body=${body}`)
+    setStatus('sent')
+  }
+
+  const handleReset = () => {
+    setForm({ name: '', email: '', message: '' })
+    setStatus('idle')
   }
 
   return (
     <main className="page-wrapper">
+      <SEO
+        title="Contact"
+        description="Get in touch with Aashutosh Dhungel. Talk about medicine, writing, or anything else."
+      />
+
       <section className="contact-hero">
         <div className="contact-hero__glow" />
         <div className="container">
@@ -46,7 +61,7 @@ function Contact() {
               {info.map(item => (
                 <li key={item.label}>
                   <div className="contact-info__icon">
-                    <Icon id={item.icon} className="icon" />
+                    <item.Icon />
                   </div>
                   <div>
                     <span className="contact-info__label">{item.label}</span>
@@ -63,25 +78,28 @@ function Contact() {
             </ul>
 
             <div className="contact-note">
-              <Icon id="heart" className="icon icon-sm" />
+              <span className="contact-note__icon"><IconHeart /></span>
               <p>Based in the Terai foothills of Nepal, passionate about medicine and writing.</p>
             </div>
           </div>
 
           <div className="contact-form-wrap fade-in fade-in-delay-2">
-            {sent ? (
+            {status === 'sent' ? (
               <div className="contact-success">
                 <div className="contact-success__icon">
-                  <svg width="40" height="40" viewBox="0 0 40 40">
-                    <rect width="40" height="40" rx="10" fill="var(--accent-teal-dim)"/>
-                    <path d="M12 20l6 6 10-12" stroke="#3dd6b5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                  <svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true">
+                    <rect width="56" height="56" rx="14" fill="var(--accent-teal-dim)"/>
+                    <path d="M17 28l8 8 14-16" stroke="#3dd6b5" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
                   </svg>
                 </div>
-                <h3>Message Ready</h3>
-                <p>Your mail client has opened with the message. Thank you for reaching out.</p>
+                <h3>Message Sent!</h3>
+                <p>Your mail client has opened with the message pre-filled. Thank you for reaching out.</p>
+                <button className="btn-outline" onClick={handleReset}>
+                  Send Another
+                </button>
               </div>
             ) : (
-              <form className="contact-form" onSubmit={handleSubmit}>
+              <div className="contact-form">
                 <h3 className="contact-form__heading">Send a Message</h3>
                 <div className="form-group">
                   <label htmlFor="name">Your Name</label>
@@ -92,7 +110,7 @@ function Contact() {
                     placeholder="Hari Bahadur"
                     value={form.name}
                     onChange={handleChange}
-                    required
+                    autoComplete="name"
                   />
                 </div>
                 <div className="form-group">
@@ -104,7 +122,7 @@ function Contact() {
                     placeholder="hari@example.com"
                     value={form.email}
                     onChange={handleChange}
-                    required
+                    autoComplete="email"
                   />
                 </div>
                 <div className="form-group">
@@ -116,14 +134,22 @@ function Contact() {
                     placeholder="Write something here..."
                     value={form.message}
                     onChange={handleChange}
-                    required
                   />
                 </div>
-                <button type="submit" className="btn-primary contact-submit">
+                <button
+                  type="button"
+                  className="btn-primary contact-submit"
+                  onClick={handleSubmit}
+                  disabled={!isValid}
+                  aria-disabled={!isValid}
+                >
                   Send Message
-                  <Icon id="arrow-right" className="icon icon-sm" />
+                  <IconArrowRight />
                 </button>
-              </form>
+                <p className="contact-form__note">
+                  Opens your email client with the message pre-filled.
+                </p>
+              </div>
             )}
           </div>
         </div>

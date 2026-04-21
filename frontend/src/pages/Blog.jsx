@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO.jsx'
 import blogs from '../blogs/index.js'
-import Icon from '../components/Icon.jsx'
+import { IconCalendar, IconClock, IconArrowRight, IconBook } from '../components/Icons.jsx'
 import './Blog.css'
 
 const categories = ['All', ...new Set(blogs.map(b => b.category))]
@@ -13,6 +14,11 @@ function Blog() {
 
   return (
     <main className="page-wrapper">
+      <SEO
+        title="Blog"
+        description="Reflections on medicine, biology, poetry, and the human story by Aashutosh Dhungel, a medical aspirant from Nepal."
+      />
+
       <section className="blog-hero">
         <div className="blog-hero__glow" />
         <div className="container">
@@ -29,12 +35,13 @@ function Blog() {
 
       <section className="blog-content section-pad">
         <div className="container">
-          <div className="blog-filters">
+          <div className="blog-filters" role="group" aria-label="Filter by category">
             {categories.map(cat => (
               <button
                 key={cat}
                 className={`blog-filter-btn ${active === cat ? 'blog-filter-btn--active' : ''}`}
                 onClick={() => setActive(cat)}
+                aria-pressed={active === cat}
               >
                 {cat}
               </button>
@@ -43,13 +50,17 @@ function Blog() {
 
           <div className="blog-grid">
             {filtered.map((post, i) => (
-              <Link to={`/blog/${post.slug}`} key={post.slug} className={`blog-card ${i === 0 && active === 'All' ? 'blog-card--featured' : ''}`}>
+              <Link
+                to={`/blog/${post.slug}`}
+                key={post.slug}
+                className={`blog-card ${i === 0 && active === 'All' ? 'blog-card--featured' : ''}`}
+              >
                 <div className="blog-card__top">
                   <span className="blog-card__cat">{post.category}</span>
                   <div className="blog-card__meta">
-                    <Icon id="calendar" className="icon icon-sm" />
+                    <IconCalendar />
                     <span>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
-                    <Icon id="clock" className="icon icon-sm" />
+                    <IconClock />
                     <span>{post.readTime} read</span>
                   </div>
                 </div>
@@ -57,15 +68,15 @@ function Blog() {
                 <p className="blog-card__excerpt">{post.excerpt}</p>
                 <div className="blog-card__cta">
                   <span>Read article</span>
-                  <Icon id="arrow-right" className="icon icon-sm" />
+                  <IconArrowRight />
                 </div>
               </Link>
             ))}
           </div>
 
           {filtered.length === 0 && (
-            <div className="blog-empty">
-              <Icon id="book" className="icon icon-lg" />
+            <div className="blog-empty" role="status">
+              <IconBook />
               <p>No posts in this category yet.</p>
             </div>
           )}

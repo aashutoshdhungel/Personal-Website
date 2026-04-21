@@ -64,7 +64,14 @@
   display: flex;
   align-items: flex-start;
   gap: 14px;
+}
+
+.about-info__icon-wrap {
   color: var(--accent-teal);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
 }
 
 .about-info__list li > div {
@@ -168,6 +175,12 @@
   color: var(--accent-teal);
   flex-shrink: 0;
   margin-top: 4px;
+  display: flex;
+}
+
+.about-philosophy__icon svg {
+  width: 28px;
+  height: 28px;
 }
 
 .about-philosophy blockquote {
@@ -272,12 +285,29 @@
 }
 
 @media (max-width: 600px) {
+  .about-hero {
+    padding: 80px 0 60px;
+  }
+
+  .about-hero__intro {
+    font-size: 15px;
+  }
+
+  .about-philosophy {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .about-philosophy blockquote {
+    font-size: 16px;
+  }
+
   .timeline {
     padding-left: 80px;
   }
 
   .timeline::before {
-    left: 48px;
+    left: 50px;
   }
 
   .timeline__year {
@@ -287,5 +317,9 @@
 
   .timeline__dot {
     left: -22px;
+  }
+
+  .timeline__body {
+    padding: 18px 20px;
   }
 }

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import Icon from './Icon.jsx'
+import { IconMenu, IconClose } from './Icons.jsx'
 import './Navbar.css'
+
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -13,6 +14,15 @@ function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
   const links = [
     { to: '/', label: 'Home' },
     { to: '/about', label: 'About' },
@@ -23,16 +33,12 @@ function Navbar() {
   return (
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="container navbar__inner">
-        <Link to="/" className="navbar__logo">
-          <svg width="28" height="28" viewBox="0 0 28 28">
-            <rect width="28" height="28" rx="6" fill="#0a1628"/>
-            <rect x="12" y="5" width="4" height="18" rx="1.5" fill="#3dd6b5"/>
-            <rect x="5" y="12" width="18" height="4" rx="1.5" fill="#3dd6b5"/>
-          </svg>
+        <Link to="/" className="navbar__logo" onClick={() => setMenuOpen(false)}>
+            <img src="/favicon.png" width="28" height="22" alt="Aashutosh Dhungel" aria-hidden="true" />
           <span>Aashutosh</span>
         </Link>
 
-        <nav className={`navbar__nav ${menuOpen ? 'navbar__nav--open' : ''}`}>
+        <nav className={`navbar__nav ${menuOpen ? 'navbar__nav--open' : ''}`} aria-label="Main navigation">
           {links.map(link => (
             <NavLink
               key={link.to}
@@ -47,15 +53,16 @@ function Navbar() {
         </nav>
 
         <div className="navbar__right">
-          <Link to="/contact" className="btn-primary navbar__cta">
+          <Link to="/contact" className="btn-primary navbar__cta" onClick={() => setMenuOpen(false)}>
             Get In Touch
           </Link>
           <button
             className="navbar__burger"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
           >
-            <Icon id={menuOpen ? 'close' : 'menu'} />
+            {menuOpen ? <IconClose /> : <IconMenu />}
           </button>
         </div>
       </div>

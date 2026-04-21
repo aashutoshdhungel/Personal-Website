@@ -1,5 +1,15 @@
 import { Link } from 'react-router-dom'
-import Icon from '../components/Icon.jsx'
+import SEO from '../components/SEO.jsx'
+import {
+  IconArrowRight,
+  IconCross,
+  IconBook,
+  IconMap,
+  IconStethoscope,
+  IconPen,
+  IconDna,
+} from '../components/Icons.jsx'
+import heroImg from '../assets/profile.png'
 import './Home.css'
 
 const stats = [
@@ -9,15 +19,17 @@ const stats = [
 ]
 
 const interests = [
-  { icon: 'stethoscope', title: 'Medicine', desc: 'Passionate about human anatomy, clinical sciences, and the art of healing.' },
-  { icon: 'pen', title: 'Poetry', desc: 'Writing verses that capture the human condition and the beauty of existence.' },
-  { icon: 'book', title: 'Stories', desc: 'Crafting narratives that blend imagination with lived experience.' },
-  { icon: 'dna', title: 'Biology', desc: 'Fascinated by life at the molecular and cellular level.' },
+  { Icon: IconStethoscope, title: 'Medicine', desc: 'Passionate about human anatomy, clinical sciences, and the art of healing.' },
+  { Icon: IconPen, title: 'Poetry', desc: 'Writing verses that capture the human condition and the beauty of existence.' },
+  { Icon: IconBook, title: 'Stories', desc: 'Crafting narratives that blend imagination with lived experience.' },
+  { Icon: IconDna, title: 'Biology', desc: 'Fascinated by life at the molecular and cellular level.' },
 ]
 
 function Home() {
   return (
     <main className="page-wrapper">
+      <SEO />
+
       <section className="hero">
         <div className="hero__bg">
           <div className="hero__grid" />
@@ -27,7 +39,7 @@ function Home() {
         <div className="container hero__inner">
           <div className="hero__content fade-in">
             <span className="hero__badge">
-              <Icon id="cross" className="icon icon-sm" />
+              <IconCross />
               Aspiring Doctor
             </span>
             <h1 className="hero__title">
@@ -41,7 +53,7 @@ function Home() {
             <div className="hero__actions fade-in fade-in-delay-2">
               <Link to="/about" className="btn-primary">
                 About Me
-                <Icon id="arrow-right" className="icon icon-sm" />
+                <IconArrowRight />
               </Link>
               <Link to="/blog" className="btn-outline">
                 Read My Blog
@@ -49,25 +61,22 @@ function Home() {
             </div>
           </div>
           <div className="hero__visual fade-in fade-in-delay-3">
-            <div className="hero__card-wrap">
+            <div className="hero__image-wrap">
               <div className="hero__pulse" />
-              <div className="hero__card">
-                <svg width="80" height="80" viewBox="0 0 80 80" className="hero__emblem">
-                  <circle cx="40" cy="40" r="38" fill="none" stroke="rgba(61,214,181,0.2)" strokeWidth="1" strokeDasharray="4 4"/>
-                  <rect x="34" y="16" width="12" height="48" rx="4" fill="#3dd6b5" opacity="0.9"/>
-                  <rect x="16" y="34" width="48" height="12" rx="4" fill="#3dd6b5" opacity="0.9"/>
-                </svg>
-                <div className="hero__card-text">
-                  <span className="hero__card-label">Primary Goal</span>
-                  <span className="hero__card-value">Doctor of Medicine</span>
-                </div>
-              </div>
+              <img
+                src={heroImg}
+                alt="Aashutosh Dhungel, medical aspirant and writer from Jhapa, Nepal"
+                className="hero__photo"
+                width="320"
+                height="320"
+                onError={e => { e.currentTarget.style.display = 'none' }}
+              />
               <div className="hero__stat-pill hero__stat-pill--1">
-                <Icon id="book" className="icon icon-sm" />
+                <IconBook />
                 <span>Active Writer</span>
               </div>
               <div className="hero__stat-pill hero__stat-pill--2">
-                <Icon id="map" className="icon icon-sm" />
+                <IconMap />
                 <span>Jhapa, Nepal</span>
               </div>
             </div>
@@ -95,7 +104,7 @@ function Home() {
             {interests.map(item => (
               <div key={item.title} className="interest-card">
                 <div className="interest-card__icon">
-                  <Icon id={item.icon} className="icon icon-lg" />
+                  <item.Icon />
                 </div>
                 <h3>{item.title}</h3>
                 <p>{item.desc}</p>
@@ -118,7 +127,7 @@ function Home() {
             </p>
             <Link to="/blog" className="btn-primary">
               Read the Blog
-              <Icon id="arrow-right" className="icon icon-sm" />
+              <IconArrowRight />
             </Link>
           </div>
         </div>

@@ -106,7 +106,13 @@
   padding: 16px;
   background: var(--bg-secondary);
   border-radius: var(--radius-sm);
+}
+
+.contact-note__icon {
   color: var(--accent-teal);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
 }
 
 .contact-note p {
@@ -177,6 +183,20 @@
   font-size: 15px;
 }
 
+.contact-submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.contact-form__note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  font-family: var(--font-mono);
+}
+
 .contact-success {
   display: flex;
   flex-direction: column;
@@ -209,5 +229,23 @@
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-hero {
+    padding: 80px 0 48px;
+  }
+
+  .contact-form-wrap {
+    padding: 24px 20px;
+  }
+
+  .contact-info {
+    padding: 24px 20px;
+  }
+
+  .contact-success {
+    padding: 40px 20px;
   }
 }

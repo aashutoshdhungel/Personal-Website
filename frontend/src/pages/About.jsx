@@ -1,4 +1,13 @@
-import Icon from '../components/Icon.jsx'
+import SEO from '../components/SEO.jsx'
+import {
+  IconMap,
+  IconPhone,
+  IconGithub,
+  IconLinkedin,
+  IconStethoscope,
+  IconHeart,
+  IconCross,
+} from '../components/Icons.jsx'
 import './About.css'
 
 const timeline = [
@@ -16,9 +25,23 @@ const skills = [
   { label: 'Poetry', level: 92 },
 ]
 
+const infoItems = [
+  { Icon: IconMap, key: 'Location', val: 'Arjundhara, Jhapa, Nepal', href: null },
+  { Icon: IconPhone, key: 'Phone', val: '9800000000', href: null },
+  { Icon: IconGithub, key: 'GitHub', val: 'aashutoshdhungel', href: 'https://github.com/aashutoshdhungel' },
+  { Icon: IconLinkedin, key: 'LinkedIn', val: 'linkedin.com', href: 'https://linkedin.com' },
+  { Icon: IconStethoscope, key: 'Aim', val: 'MBBS Doctor', href: null },
+  { Icon: IconHeart, key: 'Hobbies', val: 'Poetry, Story Writing', href: null },
+]
+
 function About() {
   return (
     <main className="page-wrapper">
+      <SEO
+        title="About"
+        description="Learn about Aashutosh Dhungel, a medical aspirant and writer from Arjundhara, Jhapa, Nepal preparing for MBBS with a love for poetry and stories."
+      />
+
       <section className="about-hero">
         <div className="about-hero__bg" />
         <div className="container">
@@ -42,52 +65,23 @@ function About() {
             <div className="about-info__card fade-in">
               <h3 className="about-info__heading">Personal Details</h3>
               <ul className="about-info__list">
-                <li>
-                  <Icon id="map" className="icon" />
-                  <div>
-                    <span className="about-info__key">Location</span>
-                    <span className="about-info__val">Arjundhara, Jhapa, Nepal</span>
-                  </div>
-                </li>
-                <li>
-                  <Icon id="phone" className="icon" />
-                  <div>
-                    <span className="about-info__key">Phone</span>
-                    <span className="about-info__val">9800000000</span>
-                  </div>
-                </li>
-                <li>
-                  <Icon id="github" className="icon" />
-                  <div>
-                    <span className="about-info__key">GitHub</span>
-                    <a href="https://github.com/aashutoshdhungel" target="_blank" rel="noreferrer" className="about-info__link">
-                      aashutoshdhungel
-                    </a>
-                  </div>
-                </li>
-                <li>
-                  <Icon id="linkedin" className="icon" />
-                  <div>
-                    <span className="about-info__key">LinkedIn</span>
-                    <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="about-info__link">
-                      linkedin.com
-                    </a>
-                  </div>
-                </li>
-                <li>
-                  <Icon id="stethoscope" className="icon" />
-                  <div>
-                    <span className="about-info__key">Aim</span>
-                    <span className="about-info__val">MBBS Doctor</span>
-                  </div>
-                </li>
-                <li>
-                  <Icon id="heart" className="icon" />
-                  <div>
-                    <span className="about-info__key">Hobbies</span>
-                    <span className="about-info__val">Poetry, Story Writing</span>
-                  </div>
-                </li>
+                {infoItems.map(item => (
+                  <li key={item.key}>
+                    <span className="about-info__icon-wrap">
+                      <item.Icon />
+                    </span>
+                    <div>
+                      <span className="about-info__key">{item.key}</span>
+                      {item.href ? (
+                        <a href={item.href} target="_blank" rel="noreferrer" className="about-info__link">
+                          {item.val}
+                        </a>
+                      ) : (
+                        <span className="about-info__val">{item.val}</span>
+                      )}
+                    </div>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -109,7 +103,9 @@ function About() {
             </div>
 
             <div className="about-philosophy fade-in">
-              <Icon id="cross" className="icon icon-lg about-philosophy__icon" />
+              <span className="about-philosophy__icon">
+                <IconCross />
+              </span>
               <blockquote>
                 Medicine is the most humane of the arts, the most artistic of the sciences, and
                 the most scientific of the humanities. I want to walk that path and serve the

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { IconGithub, IconLinkedin } from './Icons.jsx'
+import { IconFacebook, IconGithub, IconLinkedin } from './Icons.jsx'
 import './Footer.css'
 
 function Footer() {
@@ -22,8 +22,8 @@ function Footer() {
         </nav>
 
         <div className="footer__socials">
-          <a href="https://github.com/aashutoshdhungel" target="_blank" rel="noreferrer" aria-label="GitHub">
-            <IconGithub />
+          <a href="https://www.facebook.com/dhungelaashutosh" target="_blank" rel="noreferrer" aria-label="Facebook">
+            <IconFacebook />
           </a>
           <a href="https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
             <IconLinkedin />

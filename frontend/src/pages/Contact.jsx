@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import SEO from '../components/SEO.jsx'
-import { IconPhone, IconMap, IconGithub, IconLinkedin, IconHeart, IconArrowRight } from '../components/Icons.jsx'
+import { IconPhone, IconMap, IconGithub, IconLinkedin, IconHeart, IconArrowRight , IconFacebook} from '../components/Icons.jsx'
 import './Contact.css'
 
 const info = [
-  { Icon: IconPhone, label: 'Phone', value: '+977 9800000000', href: 'tel:9800000000' },
+  { Icon: IconPhone, label: 'Phone', value: '+977 9705804558', href: 'tel:9705804558' },
   { Icon: IconMap, label: 'Location', value: 'Arjundhara, Jhapa, Nepal', href: null },
-  { Icon: IconGithub, label: 'GitHub', value: 'github.com/aashutoshdhungel', href: 'https://github.com/aashutoshdhungel' },
+  { Icon: IconFacebook, label: 'Facebook', value: 'facebook.com/dhungelaashutosh', href: 'https://www.facebook.com/dhungelaashutosh' },
   { Icon: IconLinkedin, label: 'LinkedIn', value: 'linkedin.com', href: 'https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/' },
 ]
 
-const YOUR_EMAIL = 'aashutoshdhungel@example.com'
+const YOUR_EMAIL = 'dhungelaashutosh78@gmail.com'
 
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
@@ -107,7 +107,7 @@ function Contact() {
                     id="name"
                     name="name"
                     type="text"
-                    placeholder="Hari Bahadur"
+                    placeholder=""
                     value={form.name}
                     onChange={handleChange}
                     autoComplete="name"
@@ -119,7 +119,7 @@ function Contact() {
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="hari@example.com"
+                    placeholder="example@gmail.com"
                     value={form.email}
                     onChange={handleChange}
                     autoComplete="email"

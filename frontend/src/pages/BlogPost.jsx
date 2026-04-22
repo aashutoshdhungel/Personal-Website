@@ -122,7 +122,7 @@ function BlogPost() {
               <IconGithub />
               GitHub
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer">
+            <a href="https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/" target="_blank" rel="noreferrer">
               <IconLinkedin />
               LinkedIn
             </a>

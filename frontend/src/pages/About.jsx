@@ -29,7 +29,7 @@ const infoItems = [
   { Icon: IconMap, key: 'Location', val: 'Arjundhara, Jhapa, Nepal', href: null },
   { Icon: IconPhone, key: 'Phone', val: '9800000000', href: null },
   { Icon: IconGithub, key: 'GitHub', val: 'aashutoshdhungel', href: 'https://github.com/aashutoshdhungel' },
-  { Icon: IconLinkedin, key: 'LinkedIn', val: 'linkedin.com', href: 'https://linkedin.com' },
+  { Icon: IconLinkedin, key: 'LinkedIn', val: 'linkedin.com/in/aashutosh-dhungel-01b5bb393/', href: 'https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/' },
   { Icon: IconStethoscope, key: 'Aim', val: 'MBBS Doctor', href: null },
   { Icon: IconHeart, key: 'Hobbies', val: 'Poetry, Story Writing', href: null },
 ]

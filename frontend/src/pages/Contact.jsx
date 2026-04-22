@@ -7,10 +7,8 @@ const info = [
   { Icon: IconPhone, label: 'Phone', value: '+977 9705804558', href: 'tel:9705804558' },
   { Icon: IconMap, label: 'Location', value: 'Arjundhara, Jhapa, Nepal', href: null },
   { Icon: IconFacebook, label: 'Facebook', value: 'facebook.com/dhungelaashutosh', href: 'https://www.facebook.com/dhungelaashutosh' },
-  { Icon: IconLinkedin, label: 'LinkedIn', value: 'linkedin.com', href: 'https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/' },
+  { Icon: IconLinkedin, label: 'LinkedIn', value: 'linkedin.com/in/aashutosh-dhungel-01b5bb393/', href: 'https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/' },
 ]
-
-const YOUR_EMAIL = 'dhungelaashutosh78@gmail.com'
 
 function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
@@ -20,12 +18,33 @@ function Contact() {
 
   const isValid = form.name.trim() && form.email.trim() && form.message.trim()
 
-  const handleSubmit = () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault()
     if (!isValid) return
-    const subject = encodeURIComponent(`Message from ${form.name}`)
-    const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)
-    window.open(`mailto:${YOUR_EMAIL}?subject=${subject}&body=${body}`)
-    setStatus('sent')
+    
+    setStatus('sending') // Set loading state
+
+    const formData = new FormData()
+    formData.append("access_key", "59fd4889-92b9-4721-8bed-8b3e4467e2fa")
+    formData.append("name", form.name)
+    formData.append("email", form.email)
+    formData.append("message", form.message)
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      })
+
+      const data = await response.json()
+      if (data.success) {
+        setStatus('sent')
+      } else {
+        setStatus('error')
+      }
+    } catch (error) {
+      setStatus('error')
+    }
   }
 
   const handleReset = () => {
@@ -93,13 +112,13 @@ function Contact() {
                   </svg>
                 </div>
                 <h3>Message Sent!</h3>
-                <p>Your mail client has opened with the message pre-filled. Thank you for reaching out.</p>
+                <p>Thank you for reaching out. I will get back to you soon.</p>
                 <button className="btn-outline" onClick={handleReset}>
                   Send Another
                 </button>
               </div>
             ) : (
-              <div className="contact-form">
+              <form className="contact-form" onSubmit={handleSubmit}>
                 <h3 className="contact-form__heading">Send a Message</h3>
                 <div className="form-group">
                   <label htmlFor="name">Your Name</label>
@@ -107,7 +126,7 @@ function Contact() {
                     id="name"
                     name="name"
                     type="text"
-                    placeholder=""
+                    required
                     value={form.name}
                     onChange={handleChange}
                     autoComplete="name"
@@ -119,6 +138,7 @@ function Contact() {
                     id="email"
                     name="email"
                     type="email"
+                    required
                     placeholder="example@gmail.com"
                     value={form.email}
                     onChange={handleChange}
@@ -130,6 +150,7 @@ function Contact() {
                   <textarea
                     id="message"
                     name="message"
+                    required
                     rows={6}
                     placeholder="Write something here..."
                     value={form.message}
@@ -137,19 +158,17 @@ function Contact() {
                   />
                 </div>
                 <button
-                  type="button"
+                  type="submit"
                   className="btn-primary contact-submit"
-                  onClick={handleSubmit}
-                  disabled={!isValid}
-                  aria-disabled={!isValid}
+                  disabled={!isValid || status === 'sending'}
                 >
-                  Send Message
+                  {status === 'sending' ? 'Sending...' : 'Send Message'}
                   <IconArrowRight />
                 </button>
-                <p className="contact-form__note">
-                  Opens your email client with the message pre-filled.
-                </p>
-              </div>
+                {status === 'error' && (
+                  <p style={{ color: 'red', marginTop: '10px' }}>Something went wrong. Please try again.</p>
+                )}
+              </form>
             )}
           </div>
         </div>

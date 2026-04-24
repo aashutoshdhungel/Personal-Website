@@ -38,6 +38,10 @@
   margin-bottom: 48px;
 }
 
+.blog-content {
+  padding: 0 0 80px;
+}
+
 .blog-filter-btn {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -191,11 +195,20 @@
     grid-template-columns: 1fr;
   }
 
+  .blog-card {
+    padding: 20px;
+  }
+
   .blog-card--featured {
     grid-column: span 1;
   }
 
   .blog-card--featured .blog-card__title {
     font-size: 22px;
+  }
+
+  .blog-filter-btn{
+    padding: 6px 16px;
+    font-size: 10px;
   }
 }

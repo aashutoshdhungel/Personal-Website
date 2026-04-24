@@ -9,7 +9,7 @@ import {
   IconPen,
   IconDna,
 } from '../components/Icons.jsx'
-import heroImg from '../assets/profile.png'
+import heroImg from '../assets/pfp.jpeg'
 import './Home.css'
 
 const stats = [
@@ -67,8 +67,8 @@ function Home() {
                 src={heroImg}
                 alt="Aashutosh Dhungel, medical aspirant and writer from Jhapa, Nepal"
                 className="hero__photo"
-                width="320"
-                height="320"
+                width="350"
+                height="350"
                 onError={e => { e.currentTarget.style.display = 'none' }}
               />
               <div className="hero__stat-pill hero__stat-pill--1">

@@ -28,6 +28,10 @@
   line-height: 1.8;
 }
 
+.about-details{
+  padding: 0 0 60px 0;
+}
+
 .about-details__grid {
   display: grid;
   grid-template-columns: 340px 1fr;

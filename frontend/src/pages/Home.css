@@ -130,8 +130,8 @@
 }
 
 .hero__photo {
-  width: 330px;
-  height: 330px;
+  width: 350px;
+  height: 350px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--accent-teal-border);
@@ -359,6 +359,10 @@
 }
 
 @media (max-width: 600px) {
+  .page-wrapper{
+    padding: 0 10px;
+  }
+
   .section-pad {
     padding: 60px 0;
   }

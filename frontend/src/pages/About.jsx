@@ -11,27 +11,27 @@ import {
 import './About.css'
 
 const timeline = [
-  { year: '2024', title: 'Began Medical Entrance Preparation', desc: 'Started intensive study for MBBS entrance examinations, focusing on Biology, Chemistry, and Physics.' },
-  { year: '2023', title: 'First Story Published', desc: 'Wrote and shared a short story exploring human connection and the meaning of life in rural Nepal.' },
-  { year: '2022', title: 'Discovered Poetry', desc: 'Found solace in verse during challenging times, beginning to write poems that explore emotion and nature.' },
-  { year: '2020', title: 'Interest in Medicine Began', desc: 'Witnessed local healthcare challenges and became deeply motivated to contribute as a future physician.' },
+  { year: '2082', title: 'Began Pre-medical Entrance Preparation', desc: 'Started intensive study for MBBS entrance examinations, focusing on Biology, Chemistry, and Physics.' },
+  // { year: '2085', title: 'First Story Published', desc: 'Wrote and shared a short story exploring human connection and the meaning of life in rural Nepal.' },
+  { year: '2081', title: 'Discovered Poetry', desc: 'Found solace in verse during challenging times, beginning to write poems that explore emotion and nature.' },
+  { year: '2080', title: 'Interest in Medicine Began', desc: 'Witnessed local healthcare challenges and became deeply motivated to contribute as a future physician.' },
 ]
 
 const skills = [
-  { label: 'Biology', level: 90 },
-  { label: 'Chemistry', level: 80 },
-  { label: 'Physics', level: 72 },
-  { label: 'Creative Writing', level: 88 },
+  { label: 'Biology', level: 95 },
+  { label: 'Chemistry', level: 90 },
+  { label: 'Physics', level: 90 },
+  { label: 'Creative Writing', level: 97 },
   { label: 'Poetry', level: 92 },
 ]
 
 const infoItems = [
-  { Icon: IconMap, key: 'Location', val: 'Arjundhara, Jhapa, Nepal', href: null },
-  { Icon: IconPhone, key: 'Phone', val: '9800000000', href: null },
-  { Icon: IconGithub, key: 'GitHub', val: 'aashutoshdhungel', href: 'https://github.com/aashutoshdhungel' },
-  { Icon: IconLinkedin, key: 'LinkedIn', val: 'linkedin.com/in/aashutosh-dhungel-01b5bb393/', href: 'https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/' },
-  { Icon: IconStethoscope, key: 'Aim', val: 'MBBS Doctor', href: null },
-  { Icon: IconHeart, key: 'Hobbies', val: 'Poetry, Story Writing', href: null },
+  { Icon: IconMap, label: 'Location', value: 'Arjundhara, Jhapa, Nepal', href: null },
+  { Icon: IconPhone, label: 'Phone', value: '+977 9705804558', href: 'tel:9705804558' },
+  { Icon: IconGithub, label: 'GitHub', value: 'aashutoshdhungel', href: 'https://github.com/aashutoshdhungel' },
+  { Icon: IconLinkedin, label: 'LinkedIn', value: 'linkedin.com/in/aashutosh-dhungel-01b5bb393/', href: 'https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/' },
+  { Icon: IconStethoscope, label: 'Aim', value: 'MBBS Doctor', href: null },
+  { Icon: IconHeart, label: 'Hobbies', value: 'Poetry, Story Writing', href: null },
 ]
 
 function About() {
@@ -66,18 +66,18 @@ function About() {
               <h3 className="about-info__heading">Personal Details</h3>
               <ul className="about-info__list">
                 {infoItems.map(item => (
-                  <li key={item.key}>
+                  <li key={item.label}>
                     <span className="about-info__icon-wrap">
                       <item.Icon />
                     </span>
                     <div>
-                      <span className="about-info__key">{item.key}</span>
+                      <span className="about-info__key">{item.label}</span>
                       {item.href ? (
                         <a href={item.href} target="_blank" rel="noreferrer" className="about-info__link">
-                          {item.val}
+                          {item.value}
                         </a>
                       ) : (
-                        <span className="about-info__val">{item.val}</span>
+                        <span className="about-info__val">{item.value}</span>
                       )}
                     </div>
                   </li>

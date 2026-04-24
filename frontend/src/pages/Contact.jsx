@@ -98,7 +98,7 @@ function Contact() {
 
             <div className="contact-note">
               <span className="contact-note__icon"><IconHeart /></span>
-              <p>Based in the Terai foothills of Nepal, passionate about medicine and writing.</p>
+              <p>Based in the warm embrace of Terai of Nepal, passionate about medicine and writing.</p>
             </div>
           </div>
 

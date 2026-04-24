@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import SEO from '../components/SEO.jsx'
 import blogs from '../blogs/index.js'
-import { IconArrowRight, IconArrowLeft, IconCalendar, IconClock, IconGithub, IconLinkedin } from '../components/Icons.jsx'
+import { IconArrowRight, IconArrowLeft, IconCalendar, IconClock, IconGithub, IconLinkedin, IconFacebook } from '../components/Icons.jsx'
 import './BlogPost.css'
 
 function PostBody({ content }) {
@@ -106,11 +106,7 @@ function BlogPost() {
         <aside className="post-sidebar">
           <div className="post-author">
             <div className="post-author__avatar" aria-hidden="true">
-              <svg width="40" height="40" viewBox="0 0 40 40">
-                <circle cx="20" cy="20" r="20" fill="var(--bg-card)"/>
-                <rect x="17" y="8" width="6" height="24" rx="2" fill="#3dd6b5" opacity="0.9"/>
-                <rect x="8" y="17" width="24" height="6" rx="2" fill="#3dd6b5" opacity="0.9"/>
-              </svg>
+              <img src="../assets/pfp.jpeg" alt="Aashutosh Dhungel" />
             </div>
             <div>
               <span className="post-author__name">Aashutosh Dhungel</span>
@@ -118,9 +114,9 @@ function BlogPost() {
             </div>
           </div>
           <div className="post-sidebar__links">
-            <a href="https://github.com/aashutoshdhungel" target="_blank" rel="noreferrer">
-              <IconGithub />
-              GitHub
+            <a href="https://www.facebook.com/aashutosh.dhungel" target="_blank" rel="noreferrer">
+              <IconFacebook />
+              Facebook
             </a>
             <a href="https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/" target="_blank" rel="noreferrer">
               <IconLinkedin />

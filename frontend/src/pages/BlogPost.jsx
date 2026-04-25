@@ -1,16 +1,45 @@
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect, Suspense, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import SEO from '../components/SEO.jsx'
 import blogs from '../blogs/index.js'
-import { IconArrowRight, IconArrowLeft, IconCalendar, IconClock, IconGithub, IconLinkedin, IconFacebook } from '../components/Icons.jsx'
+import {
+  IconArrowRight,
+  IconArrowLeft,
+  IconCalendar,
+  IconClock,
+  IconLinkedin,
+  IconFacebook,
+} from '../components/Icons.jsx'
+import pfp from '/pfp.jpeg'
 import './BlogPost.css'
 
 function PostBody({ content }) {
   return (
     <div className="post-body">
       <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+    </div>
+  )
+}
+
+function ReadingProgress() {
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const onScroll = () => {
+      const el = document.documentElement
+      const scrolled = el.scrollTop
+      const total = el.scrollHeight - el.clientHeight
+      setProgress(total > 0 ? Math.min(100, (scrolled / total) * 100) : 0)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return (
+    <div className="post-progress" aria-hidden="true">
+      <div className="post-progress__bar" style={{ width: `${progress}%` }} />
     </div>
   )
 }
@@ -25,21 +54,12 @@ function BlogPost() {
   const post = blogs.find(b => b.slug === slug)
 
   useEffect(() => {
-    if (!post) {
-      navigate('/blog', { replace: true })
-      return
-    }
+    if (!post) { navigate('/blog', { replace: true }); return }
     setLoading(true)
     setError(false)
     post.file()
-      .then(mod => {
-        setContent(mod.default)
-        setLoading(false)
-      })
-      .catch(() => {
-        setError(true)
-        setLoading(false)
-      })
+      .then(mod => { setContent(mod.default); setLoading(false) })
+      .catch(() => { setError(true); setLoading(false) })
   }, [slug, post, navigate])
 
   if (!post) return null
@@ -57,8 +77,9 @@ function BlogPost() {
         article={{ date: post.date, category: post.category }}
       />
 
+      <ReadingProgress />
+
       <div className="post-hero">
-        <div className="post-hero__glow" />
         <div className="container">
           <Link to="/blog" className="post-back">
             <IconArrowLeft />
@@ -75,13 +96,13 @@ function BlogPost() {
               <span>{post.readTime} read</span>
             </div>
           </div>
-          <h1 className="post-hero__title fade-in">{post.title}</h1>
-          <p className="post-hero__excerpt fade-in fade-in-delay-1">{post.excerpt}</p>
+          <h1 className="post-hero__title">{post.title}</h1>
+          <p className="post-hero__excerpt">{post.excerpt}</p>
         </div>
       </div>
 
       <div className="container post-layout">
-        <article className="post-article">
+        <article>
           {loading && (
             <div className="post-loading" aria-live="polite">
               <div className="post-loading__spinner" aria-hidden="true" />
@@ -90,8 +111,8 @@ function BlogPost() {
           )}
           {error && (
             <div className="post-error" role="alert">
-              <p>Could not load this article. Please try refreshing the page.</p>
-              <button className="btn-outline" onClick={() => window.location.reload()}>
+              <p>Could not load this article. Please try refreshing.</p>
+              <button className="btn btn-ghost" onClick={() => window.location.reload()}>
                 Retry
               </button>
             </div>
@@ -105,16 +126,16 @@ function BlogPost() {
 
         <aside className="post-sidebar">
           <div className="post-author">
-            <div className="post-author__avatar" aria-hidden="true">
-              <img src="../assets/pfp.jpeg" alt="Aashutosh Dhungel" />
+            <div className="post-author__avatar">
+              <img src={pfp} alt="Aashutosh Dhungel" />
             </div>
             <div>
               <span className="post-author__name">Aashutosh Dhungel</span>
-              <span className="post-author__role">Medical Aspirant, Writer</span>
+              <span className="post-author__role">Medical Aspirant</span>
             </div>
           </div>
-          <div className="post-sidebar__links">
-            <a href="https://www.facebook.com/aashutosh.dhungel" target="_blank" rel="noreferrer">
+          <div className="post-sidebar-links">
+            <a href="https://www.facebook.com/dhungelaashutosh" target="_blank" rel="noreferrer">
               <IconFacebook />
               Facebook
             </a>
@@ -129,19 +150,13 @@ function BlogPost() {
       <div className="container post-nav">
         {prev ? (
           <Link to={`/blog/${prev.slug}`} className="post-nav__item post-nav__item--prev">
-            <span className="post-nav__label">
-              <IconArrowLeft />
-              Previous
-            </span>
+            <span className="post-nav__label"><IconArrowLeft /> Previous</span>
             <span className="post-nav__title">{prev.title}</span>
           </Link>
         ) : <div />}
         {next ? (
           <Link to={`/blog/${next.slug}`} className="post-nav__item post-nav__item--next">
-            <span className="post-nav__label">
-              Next
-              <IconArrowRight />
-            </span>
+            <span className="post-nav__label">Next <IconArrowRight /></span>
             <span className="post-nav__title">{next.title}</span>
           </Link>
         ) : <div />}

@@ -9,12 +9,15 @@ import Blog from './pages/Blog.jsx'
 import BlogPost from './pages/BlogPost.jsx'
 import Contact from './pages/Contact.jsx'
 import NotFound from './pages/NotFound.jsx'
+import { useTheme } from './hooks/useTheme.js'
 
 function App() {
+  const { theme, toggle } = useTheme()
+
   return (
     <HelmetProvider>
       <BrowserRouter>
-        <Navbar />
+        <Navbar theme={theme} onToggleTheme={toggle} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

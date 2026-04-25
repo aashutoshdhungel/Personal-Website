@@ -1,21 +1,21 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO.jsx'
 import {
   IconArrowRight,
-  IconCross,
-  IconBook,
-  IconMap,
   IconStethoscope,
   IconPen,
+  IconBook,
   IconDna,
 } from '../components/Icons.jsx'
-import heroImg from '../assets/pfp.jpeg'
+import { useReveal } from '../hooks/useReveal.js'
+import heroImg from '/pfp.jpeg'
 import './Home.css'
 
 const stats = [
-  { value: 'MBBS', label: 'Goal' },
-  { value: '2+', label: 'Years Writing' },
-  { value: 'Nepal', label: 'Based In' },
+  { value: 'MBBS', label: 'Goal', delay: '0.45s' },
+  { value: '2+', label: 'Years Writing', delay: '0.53s' },
+  { value: 'Nepal', label: 'Based In', delay: '0.61s' },
 ]
 
 const interests = [
@@ -26,66 +26,72 @@ const interests = [
 ]
 
 function Home() {
+  const [imgLoaded, setImgLoaded] = useState(false)
+  const sectionRef = useReveal()
+
   return (
-    <main className="page-wrapper">
+    <main className="page-wrapper" ref={sectionRef}>
       <SEO />
 
       <section className="hero">
-        <div className="hero__bg">
-          <div className="hero__grid" />
-          <div className="hero__glow hero__glow--1" />
-          <div className="hero__glow hero__glow--2" />
+        <div className="hero__bg" aria-hidden="true">
+          <div className="hero__blob-1" />
+          <div className="hero__blob-2" />
+          <div className="hero__blob-3" />
         </div>
-        <div className="container hero__inner">
-          <div className="hero__content fade-in">
-            <span className="hero__badge">
-              <IconCross />
-              Aspiring Doctor
-            </span>
+
+        <div className="hero__main container">
+          <div className="hero__content">
+            <div className="hero__eyebrow">
+              <div className="hero__eyebrow-line" aria-hidden="true" />
+              <span className="hero__eyebrow-text">Aspiring Doctor</span>
+            </div>
+
             <h1 className="hero__title">
               Aashutosh<br />
               <em>Dhungel</em>
             </h1>
+
             <p className="hero__subtitle">
-              A medical enthusiast, poet, and story writer from the hills of Jhapa, Nepal.
-              Chasing the dream of becoming a doctor while finding meaning in words.
+              A medical enthusiast, poet, and story writer from Jhapa, Nepal. Preparing for MBBS while finding meaning in words.
             </p>
-            <div className="hero__actions fade-in fade-in-delay-2">
-              <Link to="/about" className="btn-primary">
+
+            <div className="hero__actions">
+              <Link to="/about" className="btn btn-primary">
                 About Me
                 <IconArrowRight />
               </Link>
-              <Link to="/blog" className="btn-outline">
+              <Link to="/blog" className="btn btn-ghost">
                 Read My Blog
               </Link>
             </div>
           </div>
-          <div className="hero__visual fade-in fade-in-delay-3">
-            <div className="hero__image-wrap">
-              <div className="hero__pulse" />
-              <img
-                src={heroImg}
-                alt="Aashutosh Dhungel, medical aspirant and writer from Jhapa, Nepal"
-                className="hero__photo"
-                width="350"
-                height="350"
-                onError={e => { e.currentTarget.style.display = 'none' }}
-              />
-              <div className="hero__stat-pill hero__stat-pill--1">
-                <IconBook />
-                <span>Active Writer</span>
-              </div>
-              <div className="hero__stat-pill hero__stat-pill--2">
-                <IconMap />
-                <span>Jhapa, Nepal</span>
-              </div>
+
+          <div className="hero__photo-col">
+            <img
+              src={heroImg}
+              alt="Aashutosh Dhungel, medical aspirant and writer from Jhapa, Nepal"
+              className={`hero__photo-img${imgLoaded ? ' is-loaded' : ''}`}
+              onLoad={() => setImgLoaded(true)}
+              onError={e => {
+                e.currentTarget.style.display = 'none'
+              }}
+            />
+            <div className="hero__photo-overlay" aria-hidden="true" />
+            <div className="hero__photo-caption">
+              <span className="hero__photo-caption-name">Aashutosh Dhungel</span>
+              <span className="hero__photo-caption-role">Medical Aspirant · Jhapa, Nepal</span>
             </div>
           </div>
         </div>
 
-        <div className="container hero__stats fade-in fade-in-delay-4">
+        <div className="hero__stats">
           {stats.map(s => (
-            <div key={s.label} className="hero__stat">
+            <div
+              key={s.label}
+              className="hero__stat"
+              style={{ animationName: 'fadeUp', animationDuration: 'var(--dur-slow)', animationTimingFunction: 'var(--ease-out)', animationFillMode: 'both', animationDelay: s.delay }}
+            >
               <span className="hero__stat-value">{s.value}</span>
               <span className="hero__stat-label">{s.label}</span>
             </div>
@@ -95,41 +101,41 @@ function Home() {
 
       <section className="interests section-pad">
         <div className="container">
-          <p className="section-label">Passions</p>
-          <h2 className="section-title interests__title">What Drives Me</h2>
-          <p className="interests__sub">
-            Between the textbooks and the stethoscope, there is a world of stories waiting to be told.
-          </p>
+          <div className="interests__header">
+            <p className="label-tag reveal">Passions</p>
+            <h2 className="section-heading reveal reveal-d1">What Drives Me</h2>
+            <p className="interests__desc reveal reveal-d2">
+              Between textbooks and the stethoscope, there is a world of stories waiting to be told.
+            </p>
+          </div>
           <div className="interests__grid">
-            {interests.map(item => (
-              <div key={item.title} className="interest-card">
+            {interests.map((item, i) => (
+              <div
+                key={item.title}
+                className="interest-card reveal"
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
                 <div className="interest-card__icon">
                   <item.Icon />
                 </div>
-                <h3>{item.title}</h3>
-                <p>{item.desc}</p>
+                <h3 className="interest-card__title">{item.title}</h3>
+                <p className="interest-card__desc">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="cta-section">
-        <div className="container">
-          <div className="cta-box">
-            <div className="cta-box__deco" />
-            <p className="section-label">Writing</p>
-            <h2 className="cta-box__title">
-              Thoughts from a Medical Mind
-            </h2>
-            <p className="cta-box__desc">
-              Explore reflections on medicine, science, poetry, and the quiet wonders of everyday life in Nepal.
-            </p>
-            <Link to="/blog" className="btn-primary">
-              Read the Blog
-              <IconArrowRight />
-            </Link>
+      <section className="cta-band">
+        <div className="container cta-band__inner">
+          <div>
+            <p className="cta-band__label">Writing</p>
+            <h2 className="cta-band__title">Thoughts from a Medical Mind</h2>
           </div>
+          <Link to="/blog" className="btn cta-band__btn">
+            Read the Blog
+            <IconArrowRight />
+          </Link>
         </div>
       </section>
     </main>

@@ -96,15 +96,6 @@
   flex-shrink: 0;
 }
 
-.hero__eyebrow-text {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--teal);
-  animation: fadeIn var(--dur-slow) var(--ease-out) 0.3s both;
-}
-
 .hero__title {
   font-family: var(--font-display);
   font-size: var(--text-hero);
@@ -235,6 +226,30 @@
   text-transform: uppercase;
   color: var(--ink-3);
   display: block;
+}
+
+.typing-el {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 .interests {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO.jsx'
 import {
@@ -25,9 +25,55 @@ const interests = [
   { Icon: IconDna, title: 'Biology', desc: 'Fascinated by life at the molecular and cellular level.' },
 ]
 
+function useTypingEffect(phrases) {
+  const [text, setText] = useState("");
+  const stateRef = useRef({ phraseIndex: 0, charIndex: 0, isDeleting: false });
+
+  useEffect(() => {
+    let timeout;
+
+    function type() {
+      const { phraseIndex, charIndex, isDeleting } = stateRef.current;
+      const currentPhrase = phrases[phraseIndex];
+      let typeSpeed = 100;
+
+      if (isDeleting) {
+        setText(currentPhrase.substring(0, charIndex - 1));
+        stateRef.current.charIndex--;
+        typeSpeed = 50;
+      } else {
+        setText(currentPhrase.substring(0, charIndex + 1));
+        stateRef.current.charIndex++;
+        typeSpeed = 100;
+      }
+
+      if (!isDeleting && stateRef.current.charIndex === currentPhrase.length) {
+        stateRef.current.isDeleting = true;
+        typeSpeed = 2000;
+      } else if (isDeleting && stateRef.current.charIndex === 0) {
+        stateRef.current.isDeleting = false;
+        stateRef.current.phraseIndex = (phraseIndex + 1) % phrases.length;
+        typeSpeed = 500;
+      }
+
+      timeout = setTimeout(type, typeSpeed);
+    }
+
+    timeout = setTimeout(type, 100);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return text;
+}
+
 function Home() {
   const [imgLoaded, setImgLoaded] = useState(false)
   const sectionRef = useReveal()
+
+  const typingText = useTypingEffect([
+   "Aspiring Doctor.",
+   "A Poet By Heart."
+  ]);
 
   return (
     <main className="page-wrapper" ref={sectionRef}>
@@ -44,7 +90,7 @@ function Home() {
           <div className="hero__content">
             <div className="hero__eyebrow">
               <div className="hero__eyebrow-line" aria-hidden="true" />
-              <span className="hero__eyebrow-text">Aspiring Doctor</span>
+              <div className="typing-el">{typingText}</div>
             </div>
 
             <h1 className="hero__title">

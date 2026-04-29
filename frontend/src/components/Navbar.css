@@ -106,25 +106,18 @@
 .navbar__theme-btn {
   width: 36px;
   height: 36px;
-  border-radius: var(--r-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--ink-2);
   background: transparent;
-  border: 1px solid var(--border-strong);
-  transition: color var(--dur-base) var(--ease),
-              background var(--dur-base) var(--ease),
-              border-color var(--dur-base) var(--ease),
-              transform var(--dur-base) var(--ease-spring);
+  transition: transform var(--dur-base) var(--ease-spring);
   flex-shrink: 0;
 }
 
 .navbar__theme-btn:hover {
   color: var(--teal);
-  background: var(--teal-mid);
-  border-color: var(--teal-border);
-  transform: rotate(15deg);
+  transform: rotate(360deg) scale(1.2);
 }
 
 .navbar__burger {
@@ -148,41 +141,40 @@
 }
 
 .navbar__mobile-overlay {
-  display: none;
   position: fixed;
   top: var(--nav-h);
-  left: 0;
   right: 0;
   bottom: 0;
+  width: 280px;
+  max-width: 80vw;
   background: var(--bg);
   z-index: 199;
   padding: var(--sp-6) var(--sp-4);
+  display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
+  gap: var(--sp-1);
   overflow-y: auto;
-  animation: fadeIn var(--dur-base) var(--ease-out) both;
-  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+  
+  transform: translateX(100%);
+  transition: transform var(--dur-base) var(--ease-out);
 }
 
 .navbar__mobile-overlay--open {
-  display: flex;
+  transform: translateX(0);
 }
 
 .navbar__mobile-link {
-  font-size: var(--text-lg);
+  font-family: var(--font-display);
+  font-size: var(--text-md);
   font-weight: 600;
   color: var(--ink-2);
-  padding: var(--sp-4) var(--sp-5);
-  border-radius: var(--r-md);
-  transition: color var(--dur-base) var(--ease),
-              background var(--dur-base) var(--ease);
   text-decoration: none;
-  font-family: var(--font-display);
-  display: block;
-  border-bottom: 1px solid var(--border);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  transition: all var(--dur-base) var(--ease);
 }
-
-.navbar__mobile-link:last-of-type { border-bottom: none; }
 
 .navbar__mobile-link:hover,
 .navbar__mobile-link--active {

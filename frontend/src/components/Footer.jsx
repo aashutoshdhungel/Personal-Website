@@ -9,7 +9,7 @@ function Footer() {
         <div className="footer__main">
           <div className="footer__brand">
             <Link to="/" className="footer__logo">
-              <img src="/pfp.jpeg" alt="Aashutosh" width="30" height="30" style={{ borderRadius: '50%' }} />
+              <img src="/favicon.png" alt="Aashutosh" width="30" height="30" style={{ borderRadius: '10%' }} />
               <span>Aashutosh Dhungel</span>
             </Link>
             <p className="footer__desc">

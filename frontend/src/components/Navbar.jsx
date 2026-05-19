@@ -31,6 +31,7 @@ const links = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
   { to: '/blog', label: 'Blog' },
+  { to: '/notes', label: 'Notes' },
   { to: '/contact', label: 'Contact' },
 ]
 

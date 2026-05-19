@@ -2,10 +2,28 @@ import { Link } from 'react-router-dom'
 import { IconFacebook, IconLinkedin } from './Icons.jsx'
 import './Footer.css'
 
+/* pen nib SVG for builder credit */
+const NibIcon = () => (
+  <svg className="credit-nib" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 19l-7-7 1.5-1.5" />
+    <path d="M5 12L12 5l7 7-7 7z" />
+    <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+  </svg>
+)
+
+/* arrow for social links */
+const ArrowUpRight = () => (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
+    <line x1="7" y1="17" x2="17" y2="7" />
+    <polyline points="7 7 17 7 17 17" />
+  </svg>
+)
+
 function Footer() {
   return (
     <footer className="footer">
       <div className="container">
+
         <div className="footer__main">
           <div className="footer__brand">
             <Link to="/" className="footer__logo">
@@ -33,10 +51,12 @@ function Footer() {
               <a href="https://www.facebook.com/dhungelaashutosh" target="_blank" rel="noreferrer" className="footer__social-link">
                 <IconFacebook />
                 <span>Facebook</span>
+                <ArrowUpRight />
               </a>
               <a href="https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/" target="_blank" rel="noreferrer" className="footer__social-link">
                 <IconLinkedin />
                 <span>LinkedIn</span>
+                <ArrowUpRight />
               </a>
             </div>
           </div>
@@ -45,9 +65,14 @@ function Footer() {
         <div className="footer__bottom">
           <span className="footer__copy">Aashutosh Dhungel 2025</span>
           <span className="footer__credit">
-            Built by <a href="https://prasant-bhattarai.com.np" target="_blank" rel="noreferrer">Prasant Bhattarai</a>
+            crafted by{' '}
+            <a href="https://prasant-bhattarai.com.np" target="_blank" rel="noreferrer" className="footer__credit-link">
+              <NibIcon />
+              Prasant Bhattarai
+            </a>
           </span>
         </div>
+
       </div>
     </footer>
   )

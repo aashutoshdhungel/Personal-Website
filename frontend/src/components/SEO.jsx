@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async'
 
 const SITE_NAME = 'Aashutosh Dhungel'
-const SITE_URL = 'https://aashutoshdhungel.com'
+const SITE_URL = 'https://aashutoshdhungel.vercel.app'
 const DEFAULT_DESC = 'Medical aspirant, poet, and story writer from Jhapa, Nepal. Chasing the dream of becoming a doctor while finding meaning in words.'
-const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`
+const DEFAULT_IMAGE = `${SITE_URL}/pfp.jpeg`
 
 function SEO({ title, description, image, type = 'website', article }) {
   const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME

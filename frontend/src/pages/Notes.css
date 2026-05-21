@@ -379,7 +379,7 @@
     }
 
     .notes-hero__sub {
-        font-size: var(--text-sm);
+        display: none;
     }
 
     .notes-tabs-bar {

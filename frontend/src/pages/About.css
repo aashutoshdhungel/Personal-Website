@@ -1,5 +1,5 @@
 .about-hero {
-  padding: var(--sp-20) 0 var(--sp-16);
+  padding: var(--sp-16) 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -66,7 +66,7 @@
   grid-template-columns: 300px 1fr;
   gap: var(--sp-10);
   align-items: start;
-  padding: var(--sp-16) 0;
+  padding: var(--sp-12) 0;
 }
 
 .about-sidebar {
@@ -276,6 +276,12 @@
   line-height: 1.65;
 }
 
+@media (max-width: 1150px){
+  .section-pad{
+    padding: 0 20px;
+  }
+}
+
 @media (max-width: 900px) {
   .about-hero__inner {
     grid-template-columns: 1fr;
@@ -298,8 +304,6 @@
   .about-hero__quote { font-size: var(--text-lg); }
 
   .about-main { padding: 0 18px; }
-
-  .about-sidebar { padding: 0 18px; }
 
   .about-layout {
     padding: 0;

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import SEO from '../components/SEO.jsx'
+import {SUBJECT_ICONS, PdfFileIcon, ViewIcon, DownloadIcon, CloseIcon, EmptyIcon, ErrorIcon} from '../components/Icons.jsx'
 import { useReveal } from '../hooks/useReveal.js'
 import './Notes.css'
 
@@ -41,6 +42,41 @@ const NOTES = {
             desc: 'शब्दवर्ग, रुपायन, र सिर्जनात्मक लेखन शैली।',
         },
         {
+            id: 'g11-bot-cell_biology',
+            subject: 'Botany',
+            title: 'Cell Biology',
+            file: '/notes/grade_11/botany/cell_biology.pdf',
+            desc: 'Detailed notes on cell structure and function.',
+        },
+        {
+            id: 'g11-bot-ecological_adaptation',
+            subject: 'Botany',
+            title: 'Ecological Adaptation',
+            file: '/notes/grade_11/botany/ecological_adaptation.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-ecological_imbalances',
+            subject: 'Botany',
+            title: 'Ecological Imbalances',
+            file: '/notes/grade_11/botany/ecological_imbalances.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-ecosystem',
+            subject: 'Botany',
+            title: 'Ecosystem',
+            file: '/notes/grade_11/botany/ecosystem.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-enzymes',
+            subject: 'Botany',
+            title: 'Enzymes',
+            file: '/notes/grade_11/botany/enzymes.pdf',
+            desc: '',
+        },
+        {
             id: 'g11-bot-brassicaceae',
             subject: 'Botany',
             title: 'Brassicaceae',
@@ -48,11 +84,81 @@ const NOTES = {
             desc: 'Detailed notes on the mustard family "Brassicaceae".',
         },
         {
-            id: 'g11-bot-cell_biology',
+            id: 'g11-bot-fabaceae',
             subject: 'Botany',
-            title: 'Cell Biology',
-            file: '/notes/grade_11/botany/cell_biology.pdf',
-            desc: 'Detailed notes on cell structure and function.',
+            title: 'Fabaceae',
+            file: '/notes/grade_11/botany/fabaceae.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-familyliliaceae',
+            subject: 'Botany',
+            title: 'Liliaceae',
+            file: '/notes/grade_11/botany/familyliliaceae.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-familysolanaceae',
+            subject: 'Botany',
+            title: 'Solanaceae',
+            file: '/notes/grade_11/botany/familysolanaceae.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-fruits',
+            subject: 'Botany',
+            title: 'Fruits',
+            file: '/notes/grade_11/botany/fruits.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-inflorescence',
+            subject: 'Botany',
+            title: 'Inflorescence',
+            file: '/notes/grade_11/botany/inflorescence.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-meiosis',
+            subject: 'Botany',
+            title: 'Meiosis',
+            file: '/notes/grade_11/botany/meiosis.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-nucleic_acid',
+            subject: 'Botany',
+            title: 'Nucleic Acid',
+            file: '/notes/grade_11/botany/cnucleic_acid.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-nucleus',
+            subject: 'Botany',
+            title: 'Nucleus',
+            file: '/notes/grade_11/botany/nucleus.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-plant_anatomy',
+            subject: 'Botany',
+            title: 'Plant Anatomy',
+            file: '/notes/grade_11/botany/plant_anatomy.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-taxonomy',
+            subject: 'Botany',
+            title: 'Taxonomy',
+            file: '/notes/grade_11/botany/taxonomy.pdf',
+            desc: '',
+        },
+        {
+            id: 'g11-bot-water',
+            subject: 'Botany',
+            title: 'Water',
+            file: '/notes/grade_11/botany/water.pdf',
+            desc: '',
         },
         {
             id: 'g11-zoo-ch1',
@@ -122,138 +228,6 @@ const NOTES = {
             desc: 'Comprehensive anatomy textbook covering all body systems with detailed illustrations.',
         },
     ],
-}
-
-const SUBJECT_ICONS = {
-    Botany: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 22V12" />
-            <path d="M12 12c2.5-3.5 6-3.5 6-7.5s-3.5-3.5-6 0c-2.5-3.5-6-3.5-6 7.5s3.5 4 6 0z" />
-            <path d="M12 14c-1.5 1-3.5 1-4.5 2.5S7 20 8.5 20.5s3-1 3.5-2.5" />
-            <path d="M12 16c1.5 1 3.5 1 4.5 2.5s.5 3.5-1 4s-3-1-3.5-2.5" />
-        </svg>
-    ),
-    Zoology: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M10 3h4v4h-4z" />
-            <path d="M12 7v7M7 14h10v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5z" />
-            <path d="M19 10a2 2 0 00-2-2h-1M5 10a2 2 0 012-2h1" />
-            <circle cx="9.5" cy="17.5" r=".5" fill="currentColor" />
-            <circle cx="14.5" cy="17.5" r=".5" fill="currentColor" />
-        </svg>
-    ),
-    Chemistry: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M9 3h6v5l3 9a2 2 0 01-1.9 2.7H7.9A2 2 0 016 17l3-9V3z" />
-            <path d="M6 3h12" />
-        </svg>
-    ),
-    Physics: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="4" />
-            <ellipse cx="12" cy="12" rx="11" ry="4.5" />
-            <ellipse cx="12" cy="12" rx="11" ry="4.5" transform="rotate(60 12 12)" />
-            <ellipse cx="12" cy="12" rx="11" ry="4.5" transform="rotate(120 12 12)" />
-        </svg>
-    ),
-    Mathematics: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="19" y1="5" x2="5" y2="19" />
-            <circle cx="6.5" cy="6.5" r="2.5" />
-            <circle cx="17.5" cy="17.5" r="2.5" />
-        </svg>
-    ),
-    English: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-            <path d="M8 6h8M8 10h8M8 14h5" />
-        </svg>
-    ),
-    Nepali: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M4 2v20" />
-            <path d="M4 2l14 7-10 2 12 9H4" />
-        </svg>
-    ),
-    Anatomy: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="5" r="3" />
-            <path d="M12 8v7" />
-            <path d="M6 10h12" />
-            <path d="M9 15v6" />
-            <path d="M15 15v6" />
-        </svg>
-    ),
-    Default: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-        </svg>
-    ),
-}
-
-function PdfFileIcon() {
-    return (
-        <svg className="notes-card__icon" viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="48" rx="6" fill="var(--teal-mid)" />
-            <path d="M8 2h18l12 12v32a2 2 0 01-2 2H8a2 2 0 01-2-2V4a2 2 0 012-2z" fill="none" stroke="var(--teal)" strokeWidth="1.5" />
-            <path d="M26 2v12h12" stroke="var(--teal)" strokeWidth="1.5" strokeLinejoin="round" />
-            <rect x="8" y="26" width="24" height="12" rx="2" fill="var(--teal)" />
-            <text x="20" y="35" textAnchor="middle" fill="white" fontSize="7" fontFamily="var(--font-mono)" fontWeight="600" letterSpacing="0.5">
-                PDF
-            </text>
-        </svg>
-    )
-}
-
-function ViewIcon() {
-    return (
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
-            <circle cx="12" cy="12" r="3" />
-        </svg>
-    )
-}
-
-function DownloadIcon() {
-    return (
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-        </svg>
-    )
-}
-
-function CloseIcon() {
-    return (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
-    )
-}
-
-function EmptyIcon() {
-    return (
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--ink-4)' }}>
-            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <line x1="9" y1="13" x2="15" y2="13" />
-            <line x1="9" y1="17" x2="13" y2="17" />
-        </svg>
-    )
-}
-
-function ErrorIcon() {
-    return (
-        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="12" />
-            <circle cx="12" cy="16" r="1" fill="currentColor" />
-        </svg>
-    )
 }
 
 function groupBySubject(notes) {

@@ -104,16 +104,16 @@ function Contact() {
                 <div className="form-row">
                   <div className="form-group">
                     <label htmlFor="name">Your Name</label>
-                    <input id="name" name="name" type="text" required value={form.name} onChange={handleChange} autoComplete="name" />
+                    <input id="name" name="name" type="text" required placeholder='John Doe' value={form.name} onChange={handleChange} autoComplete="name" />
                   </div>
                   <div className="form-group">
                     <label htmlFor="email">Email Address</label>
-                    <input id="email" name="email" type="email" required placeholder="you@example.com" value={form.email} onChange={handleChange} autoComplete="email" />
+                    <input id="email" name="email" type="email" required placeholder="johndoe@gmail.com" value={form.email} onChange={handleChange} autoComplete="email" />
                   </div>
                 </div>
                 <div className="form-group">
                   <label htmlFor="message">Your Message</label>
-                  <textarea id="message" name="message" required rows={6} placeholder="Write something here..." value={form.message} onChange={handleChange} />
+                  <textarea id="message" name="message" maxLength={500} required rows={6} placeholder="Write your message here (<500 chars.)..." value={form.message} onChange={handleChange} />
                 </div>
                 <button
                   type="submit"

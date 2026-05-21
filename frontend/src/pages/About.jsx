@@ -16,11 +16,11 @@ const timeline = [
 ]
 
 const skills = [
-  { label: 'Biology', level: 95 },
-  { label: 'Chemistry', level: 90 },
-  { label: 'Physics', level: 90 },
-  { label: 'Creative Writing', level: 97 },
-  { label: 'Poetry', level: 92 },
+  { label: 'Biology', level: 20 },
+  { label: 'Chemistry', level: 15 },
+  { label: 'Physics', level: 20 },
+  { label: 'Creative Writing', level: 75 },
+  { label: 'Poetry', level: 70 },
 ]
 
 const infoItems = [

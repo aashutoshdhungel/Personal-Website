@@ -339,7 +339,7 @@
 .cta-band {
   background: var(--teal);
   color: #fff;
-  padding: var(--sp-20) 0;
+  padding: var(--sp-12) 0;
 }
 
 .cta-band__inner {
@@ -371,7 +371,7 @@
 
 .cta-band__title {
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-size: 38px;
   font-weight: 700;
   color: #fff;
   line-height: 1.2;
@@ -417,6 +417,8 @@
   .interest-card:nth-child(2) { border-right: none; }
   .interest-card:nth-child(1),
   .interest-card:nth-child(2) { border-bottom: 1px solid var(--border); }
+  .cta-band { margin: 10px 0 0; padding: var(--sp-10) 0;}
+  .cta-band__title { font-size: 28px; }
 }
 
 @media (max-width: 600px) {
@@ -450,6 +452,8 @@
     flex-direction: column;
     align-items: flex-start;
   }
+
+  .cta-band__title { font-size: 20px;}
 
   .hero__stat { padding: var(--sp-4) var(--sp-5); }
 }

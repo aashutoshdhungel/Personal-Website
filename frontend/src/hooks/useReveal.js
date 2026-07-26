@@ -15,7 +15,7 @@ export function useReveal() {
           }
         })
       },
-      { threshold: 0.12 }
+      { threshold: 0.25 }
     )
 
     const targets = el.querySelectorAll('.reveal')

@@ -6,14 +6,14 @@ import { IconCalendar, IconClock, IconArrowRight, IconBook } from '../components
 import { useReveal } from '../hooks/useReveal.js'
 import './Blog.css'
 
-const categories = ['All', ...new Set(blogs.map(b => b.category))]
+const categories = ['All', ...new Set(blogs.map(b => b.category.trim()))]
 
 function BlogCard({ post, featured = false, delay = 0 }) {
   return (
     <Link
       to={`/blog/${post.slug}`}
-      className={`blog-card reveal${featured ? ' blog-card--featured' : ''}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      className={`blog-card${featured ? ' blog-card--featured' : ''}`}
+      style={{ animationDelay: `${delay}ms` }}
     >
       <div className="blog-card__top">
         <span className="blog-card__cat">{post.category}</span>
@@ -39,7 +39,10 @@ function Blog() {
   const [active, setActive] = useState('All')
   const ref = useReveal()
 
-  const filtered = active === 'All' ? blogs : blogs.filter(b => b.category === active)
+  const filtered = active === 'All' 
+    ? blogs 
+    : blogs.filter(b => b.category.trim().toLowerCase() === active.trim().toLowerCase())
+
   const featured = active === 'All' ? filtered.slice(0, 2) : []
   const rest = active === 'All' ? filtered.slice(2) : filtered
 
@@ -94,7 +97,7 @@ function Blog() {
             </div>
           )}
 
-          {active !== 'All' && filtered.length === 0 && (
+          {filtered.length === 0 && (
             <div className="blog-empty" role="status">
               <IconBook />
               <p>No posts in this category yet.</p>

@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO.jsx'
+import blogs from '../blogs/index.js'
 import {
   IconArrowRight,
   IconStethoscope,
   IconPen,
   IconBook,
   IconDna,
+  IconCalendar,
+  IconClock,
 } from '../components/Icons.jsx'
 import { useReveal } from '../hooks/useReveal.js'
 import heroImg from '/pfp.jpeg'
@@ -26,44 +29,70 @@ const interests = [
 ]
 
 function useTypingEffect(phrases) {
-  const [text, setText] = useState("");
-  const stateRef = useRef({ phraseIndex: 0, charIndex: 0, isDeleting: false });
+  const [text, setText] = useState("")
+  const stateRef = useRef({ phraseIndex: 0, charIndex: 0, isDeleting: false })
 
   useEffect(() => {
-    let timeout;
+    let timeout
 
     function type() {
-      const { phraseIndex, charIndex, isDeleting } = stateRef.current;
-      const currentPhrase = phrases[phraseIndex];
-      let typeSpeed = 100;
+      const { phraseIndex, charIndex, isDeleting } = stateRef.current
+      const currentPhrase = phrases[phraseIndex]
+      let typeSpeed = 100
 
       if (isDeleting) {
-        setText(currentPhrase.substring(0, charIndex - 1));
-        stateRef.current.charIndex--;
-        typeSpeed = 50;
+        setText(currentPhrase.substring(0, charIndex - 1))
+        stateRef.current.charIndex--
+        typeSpeed = 50
       } else {
-        setText(currentPhrase.substring(0, charIndex + 1));
-        stateRef.current.charIndex++;
-        typeSpeed = 100;
+        setText(currentPhrase.substring(0, charIndex + 1))
+        stateRef.current.charIndex++
+        typeSpeed = 100
       }
 
       if (!isDeleting && stateRef.current.charIndex === currentPhrase.length) {
-        stateRef.current.isDeleting = true;
-        typeSpeed = 2000;
+        stateRef.current.isDeleting = true
+        typeSpeed = 2000
       } else if (isDeleting && stateRef.current.charIndex === 0) {
-        stateRef.current.isDeleting = false;
-        stateRef.current.phraseIndex = (phraseIndex + 1) % phrases.length;
-        typeSpeed = 500;
+        stateRef.current.isDeleting = false
+        stateRef.current.phraseIndex = (phraseIndex + 1) % phrases.length
+        typeSpeed = 500
       }
 
-      timeout = setTimeout(type, typeSpeed);
+      timeout = setTimeout(type, typeSpeed)
     }
 
-    timeout = setTimeout(type, 100);
-    return () => clearTimeout(timeout);
-  }, []);
+    timeout = setTimeout(type, 100)
+    return () => clearTimeout(timeout)
+  }, [])
 
-  return text;
+  return text
+}
+
+function FeaturedBlogCard({ post, delay = 0 }) {
+  return (
+    <Link
+      to={`/blog/${post.slug}`}
+      className="home-blog-card"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      <div className="home-blog-card__top">
+        <span className="home-blog-card__cat">{post.category}</span>
+        <div className="home-blog-card__meta">
+          <IconCalendar />
+          <span>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+          <IconClock />
+          <span>{post.readTime}</span>
+        </div>
+      </div>
+      <h3 className="home-blog-card__title">{post.title}</h3>
+      <p className="home-blog-card__excerpt">{post.excerpt}</p>
+      <div className="home-blog-card__cta">
+        <span>Read article</span>
+        <IconArrowRight />
+      </div>
+    </Link>
+  )
 }
 
 function Home() {
@@ -71,21 +100,18 @@ function Home() {
   const sectionRef = useReveal()
 
   const typingText = useTypingEffect([
-   "Aspiring Doctor.",
-   "A Poet By Heart."
-  ]);
+    "Aspiring Doctor.",
+    "A Poet By Heart."
+  ])
+
+  const featuredPosts = blogs.slice(0, 3)
 
   return (
     <main className="page-wrapper" ref={sectionRef}>
       <SEO />
 
+      {/* Hero section */}
       <section className="hero">
-        <div className="hero__bg" aria-hidden="true">
-          <div className="hero__blob-1" />
-          <div className="hero__blob-2" />
-          <div className="hero__blob-3" />
-        </div>
-
         <div className="hero__main container">
           <div className="hero__content">
             <div className="hero__eyebrow">
@@ -123,9 +149,8 @@ function Home() {
                 e.currentTarget.style.display = 'none'
               }}
             />
-            <div className="hero__photo-overlay" aria-hidden="true" />
             <div className="hero__photo-caption">
-              <span className="hero__photo-caption-name">Aashutosh Dhungel</span>
+              <span className="hero__photo-caption-status">Aashutosh Dhungel</span>
               <span className="hero__photo-caption-role">Medical Aspirant · Jhapa, Nepal</span>
             </div>
           </div>
@@ -136,7 +161,13 @@ function Home() {
             <div
               key={s.label}
               className="hero__stat"
-              style={{ animationName: 'fadeUp', animationDuration: 'var(--dur-slow)', animationTimingFunction: 'var(--ease-out)', animationFillMode: 'both', animationDelay: s.delay }}
+              style={{
+                animationName: 'fadeUp',
+                animationDuration: 'var(--dur-slow)',
+                animationTimingFunction: 'var(--ease-out)',
+                animationFillMode: 'both',
+                animationDelay: s.delay
+              }}
             >
               <span className="hero__stat-value">{s.value}</span>
               <span className="hero__stat-label">{s.label}</span>
@@ -145,6 +176,7 @@ function Home() {
         </div>
       </section>
 
+      {/* Passions section */}
       <section className="interests section-pad">
         <div className="container">
           <div className="interests__header">
@@ -172,16 +204,32 @@ function Home() {
         </div>
       </section>
 
-      <section className="cta-band">
-        <div className="container cta-band__inner">
-          <div>
-            <p className="cta-band__label">Writing</p>
-            <h2 className="cta-band__title">Thoughts from a Medical Mind</h2>
+      {/* Featured blog section */}
+      <section className="featured-posts section-pad">
+        <div className="container">
+          <div className="featured-posts__header">
+            <div>
+              <p className="label-tag reveal">Selected Writings</p>
+              <h2 className="section-heading reveal reveal-d1">Featured Articles</h2>
+            </div>
+            <Link to="/blog" className="btn btn-ghost featured-posts__header-link">
+              View All Posts
+              <IconArrowRight />
+            </Link>
           </div>
-          <Link to="/blog" className="btn cta-band__btn">
-            Read the Blog
-            <IconArrowRight />
-          </Link>
+
+          <div className="featured-posts__grid">
+            {featuredPosts.map((post, i) => (
+              <FeaturedBlogCard key={post.slug} post={post} delay={i * 80} />
+            ))}
+          </div>
+
+          <div className="featured-posts__footer">
+            <Link to="/blog" className="btn btn-primary">
+              Explore Blog Index
+              <IconArrowRight />
+            </Link>
+          </div>
         </div>
       </section>
     </main>

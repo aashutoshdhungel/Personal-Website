@@ -439,7 +439,8 @@ export default function Notes() {
         <main className="page-wrapper" ref={ref}>
             <SEO
                 title="Notes"
-                description="Study notes for Grade 11 and Grade 12 subjects including Botany Zoology Chemistry Physics Mathematics English and Nepali"
+                description="Free study notes for Grade 11, Grade 12, and MBBS entrance preparation shared by Aashutosh Dhungel, a medical aspirant from Nepal."
+                keywords="study notes, Grade 11, Grade 12, MBBS, Nepal, biology, botany, zoology, chemistry, physics, mathematics, entrance preparation"
             />
 
             <section className="notes-hero">

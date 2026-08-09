@@ -6,7 +6,7 @@ import './NotFound.css'
 function NotFound() {
   return (
     <main className="page-wrapper notfound">
-      <SEO title="Page Not Found" />
+      <SEO title="Page Not Found" robots="noindex, nofollow" />
       <div className="notfound__inner">
         <span className="notfound__code" aria-hidden="true">404</span>
         <h1 className="notfound__title">Page Not Found</h1>

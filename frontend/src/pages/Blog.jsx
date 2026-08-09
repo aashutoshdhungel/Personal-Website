@@ -51,6 +51,7 @@ function Blog() {
       <SEO
         title="Blog"
         description="Reflections on medicine, biology, poetry, and the human story by Aashutosh Dhungel, a medical aspirant from Nepal."
+        keywords="blog, medicine, biology, poetry, writing, Nepal, Aashutosh Dhungel, medical aspirant"
       />
 
       <section className="blog-hero">

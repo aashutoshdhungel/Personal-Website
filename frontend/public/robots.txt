@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aashutoshdhungel.com.np/sitemap.xml

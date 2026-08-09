@@ -39,6 +39,28 @@ function About() {
       <SEO
         title="About"
         description="Learn about Aashutosh Dhungel, a medical aspirant and writer from Arjundhara, Jhapa, Nepal preparing for MBBS with a love for poetry and stories."
+        keywords="about Aashutosh Dhungel, medical aspirant, MBBS preparation, Nepal, poet, writer, Jhapa"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Aashutosh Dhungel',
+          url: 'https://aashutoshdhungel.com.np/about',
+          image: 'https://aashutoshdhungel.com.np/pfp.jpeg',
+          jobTitle: 'Medical Aspirant',
+          description: 'Medical aspirant and writer from Arjundhara, Jhapa, Nepal preparing for MBBS.',
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Arjundhara',
+            addressRegion: 'Jhapa',
+            addressCountry: 'NP',
+          },
+          sameAs: [
+            'https://www.facebook.com/dhungelaashutosh',
+            'https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/',
+            'https://aashutoshdhungel.com.np',
+            'https://aashutoshdhungel.vercel.app',
+          ],
+        }}
       />
 
       <section className="about-hero">

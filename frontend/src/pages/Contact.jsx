@@ -45,7 +45,8 @@ function Contact() {
     <main className="page-wrapper" ref={ref}>
       <SEO
         title="Contact"
-        description="Get in touch with Aashutosh Dhungel. Talk about medicine, writing, or anything else."
+        description="Get in touch with Aashutosh Dhungel. Reach out to talk about medicine, writing, or anything else."
+        keywords="contact Aashutosh Dhungel, get in touch, Nepal, medical aspirant, writer"
       />
 
       <section className="contact-hero">

@@ -74,7 +74,27 @@ function BlogPost() {
         title={post.title}
         description={post.excerpt}
         type="article"
+        keywords={`${post.category}, ${post.title}, Aashutosh Dhungel, blog, Nepal, medical aspirant`}
         article={{ date: post.date, category: post.category }}
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: post.title,
+          description: post.excerpt,
+          datePublished: post.date,
+          image: 'https://aashutoshdhungel.com.np/pfp.jpeg',
+          url: `https://aashutoshdhungel.com.np/blog/${post.slug}`,
+          author: {
+            '@type': 'Person',
+            name: 'Aashutosh Dhungel',
+            url: 'https://aashutoshdhungel.com.np',
+          },
+          publisher: {
+            '@type': 'Person',
+            name: 'Aashutosh Dhungel',
+            url: 'https://aashutoshdhungel.com.np',
+          },
+        }}
       />
 
       <ReadingProgress />

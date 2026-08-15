@@ -12,13 +12,8 @@ function normalizeName(str: string): string {
 }
 
 export default function WhosThatPokemon() {
-  const [choice, setChoice] = useState<MysteryPokemon>(() => getRandomPokemon())
-  // The pokemon that will appear after this one. Decided up front (instead of
-  // at refresh time) so its artwork can be preloaded while the player is
-  // still guessing the current one.
-  const [nextChoice, setNextChoice] = useState<MysteryPokemon>(() =>
-    getRandomPokemon(choice.id)
-  )
+  const [choice, setChoice] = useState<MysteryPokemon | null>(null)
+  const [nextChoice, setNextChoice] = useState<MysteryPokemon | null>(null)
   const [guess, setGuess] = useState("")
   const [result, setResult] = useState<"idle" | "wrong" | "correct" | "failed">("idle")
 
@@ -38,8 +33,13 @@ export default function WhosThatPokemon() {
 
   useEffect(() => {
     isMountedRef.current = true
-    const savedBest = Number(localStorage.getItem(BEST_SCORE_KEY)) || 0
+    
+    // Defer random initial state generation to client mount to fix hydration mismatch
+    const initialChoice = getRandomPokemon()
+    setChoice(initialChoice)
+    setNextChoice(getRandomPokemon(initialChoice.id))
 
+    const savedBest = Number(localStorage.getItem(BEST_SCORE_KEY)) || 0
     setBestScore(savedBest)
 
     requestAnimationFrame(() => {
@@ -54,18 +54,15 @@ export default function WhosThatPokemon() {
     }
   }, [])
 
-  // Warm the browser's image cache with the upcoming pokemon while the
-  // player is still looking at (and guessing) the current one. Using a
-  // detached Image object keeps it out of the visible DOM entirely.
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined" || !nextChoice) return
 
     const preload = new window.Image()
     preload.src = officialArtUrl(nextChoice.id)
-  }, [nextChoice.id])
+  }, [nextChoice])
 
   function refreshCard() {
-    if (!isMountedRef.current) return
+    if (!isMountedRef.current || !nextChoice) return
 
     setChoice(nextChoice)
     setNextChoice(getRandomPokemon(nextChoice.id))
@@ -85,7 +82,7 @@ export default function WhosThatPokemon() {
   function submitGuess(event: React.FormEvent) {
     event.preventDefault()
 
-    if (!guess.trim() || result === "correct" || result === "failed") {
+    if (!guess.trim() || !choice || result === "correct" || result === "failed") {
       return
     }
 
@@ -136,6 +133,11 @@ export default function WhosThatPokemon() {
         inputRef.current?.focus()
       }
     })
+  }
+
+  // Fallback state for initial SSR render phase
+  if (!choice || !nextChoice) {
+    return <section className={styles.container} aria-label="Who's That Pokémon" />
   }
 
   return (

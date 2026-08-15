@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
 import useSound from "use-sound"
+import { Howler } from "howler"
 
 type SoundContextValue = {
   muted: boolean
@@ -27,16 +28,41 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     window.localStorage.setItem(STORAGE_KEY, String(muted))
   }, [muted])
 
+  // Automatically resume AudioContext on the first global user interaction
+  useEffect(() => {
+    const unlockAudio = () => {
+      if (Howler.ctx && Howler.ctx.state === "suspended") {
+        Howler.ctx.resume()
+      }
+      window.removeEventListener("pointerdown", unlockAudio)
+      window.removeEventListener("keydown", unlockAudio)
+    }
+
+    window.addEventListener("pointerdown", unlockAudio)
+    window.addEventListener("keydown", unlockAudio)
+
+    return () => {
+      window.removeEventListener("pointerdown", unlockAudio)
+      window.removeEventListener("keydown", unlockAudio)
+    }
+  }, [])
+
   const [playClick] = useSound("/sounds/click.wav", { volume: 0.5 })
   const [playSelect] = useSound("/sounds/select.wav", { volume: 0.5 })
   const [playSuccess] = useSound("/sounds/success.wav", { volume: 0.6 })
 
   const value: SoundContextValue = {
     muted,
-    toggleMuted: () => setMuted(m => !m),
-    playClick: () => { if (!muted) playClick() },
-    playSelect: () => { if (!muted) playSelect() },
-    playSuccess: () => { if (!muted) playSuccess() }
+    toggleMuted: () => setMuted((m) => !m),
+    playClick: () => {
+      if (!muted) playClick()
+    },
+    playSelect: () => {
+      if (!muted) playSelect()
+    },
+    playSuccess: () => {
+      if (!muted) playSuccess()
+    },
   }
 
   return <SoundContext.Provider value={value}>{children}</SoundContext.Provider>

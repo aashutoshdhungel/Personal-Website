@@ -36,6 +36,7 @@ export default function Footer() {
           alt="Team Rocket Meowth Balloon"
           width={120}
           height={120}
+          style={{ height: "auto", width: "auto" }}
           className={styles.balloonImage}
           priority
         />

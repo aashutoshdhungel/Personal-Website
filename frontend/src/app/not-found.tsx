@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
@@ -27,6 +29,13 @@ export default function NotFound() {
         <Link href="/" className="btn btn-primary">
           Return Home <ArrowRight size={15} />
         </Link>
+        <button
+          className="btn btn-secondary"
+          style={{ marginTop: "12px" }}
+          onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })}
+        >
+          Play Game <ArrowRight size={15} />
+        </button>
       </div>
     </main>
   )

@@ -143,6 +143,7 @@ export default function WhosThatPokemon() {
       <div className={`${styles.card} ${result === "correct" ? styles.correctCard : ""}`}>
         <div className={styles.contentWrapper}>
           <div className={`${styles.frame} ${shakeFrame ? styles.shakeFrame : ""}`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={officialArtUrl(choice.id)}
               alt=""
@@ -158,7 +159,7 @@ export default function WhosThatPokemon() {
 
           <div className={styles.sidePanel}>
             <div className={styles.header}>
-              <span className={styles.label}>Who's That Pokémon?</span>
+              <span className={styles.label}>Who&apos;s That Pokémon?</span>
               <div className={styles.stats}>
                 <div className={styles.stat}>
                   <span>Score</span>
@@ -180,12 +181,12 @@ export default function WhosThatPokemon() {
               {result === "correct" ? (
                 <div className={`${styles.answer} ${styles.correctAnswer}`}>
                   <span>Correct!</span>
-                  <strong>It's {choice.name}</strong>
+                  <strong>It&apos;s {choice.name}</strong>
                 </div>
               ) : result === "failed" ? (
                 <div className={styles.answer}>
                   <span>Out of chances!</span>
-                  <strong>It's {choice.name}</strong>
+                  <strong>It&apos;s {choice.name}</strong>
                 </div>
               ) : (
                 <form className={styles.form} onSubmit={submitGuess}>

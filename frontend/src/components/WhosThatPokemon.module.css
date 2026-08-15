@@ -1,204 +1,311 @@
 .container {
+  margin-top: var(--sp-8);
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 100%;
 }
 
 .card {
-  width: 100%;
-  max-width: 480px;
-  background-color: #ffffff;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 380px);
+  padding: 10px;
+  border: 3px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg-card);
+  box-shadow: 4px 4px 0 var(--line-soft);
+  overflow: hidden;
 }
 
 .correctCard {
-  border: 2px solid #4caf50;
+  animation: correctCard 0.55s ease-out;
 }
 
 .contentWrapper {
   display: flex;
-  gap: 20px;
+  flex-direction: row;
   align-items: center;
-}
-
-.frame {
-  width: 120px;
-  height: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5f5f7;
-  border-radius: 12px;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-
-.shakeFrame {
-  animation: shake 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-}
-
-.sprite {
-  width: 96px;
-  height: 96px;
-  object-fit: contain;
-  transition: filter 0.3s ease;
-}
-
-.silhouette {
-  filter: brightness(0);
-}
-
-.revealed {
-  filter: brightness(1);
+  gap: 12px;
+  width: 100%;
 }
 
 .sidePanel {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  flex: 1;
+  gap: 8px;
+  min-width: 0;
 }
 
 .header {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   gap: 8px;
 }
 
 .label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #86868b;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-family: var(--font-heading);
+  font-size: 8px;
+  color: var(--ink-2);
+  line-height: 1.2;
 }
 
 .stats {
   display: flex;
-  gap: 16px;
+  gap: 4px;
 }
 
 .stat {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 3px 6px;
+  border: 2px solid var(--line);
+  background: var(--bg-surface);
+  font-family: var(--font-heading);
 }
 
 .stat span {
-  font-size: 12px;
-  color: #86868b;
+  font-size: 6px;
+  color: var(--ink-2);
+  line-height: 1;
 }
 
 .stat strong {
-  font-size: 18px;
-  color: #1d1d1f;
+  font-size: 9px;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.recordStat {
+  animation: recordPulse 0.8s ease-out;
 }
 
 .recordStat strong {
-  color: #ff9500;
+  color: var(--accent);
+}
+
+.frame {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--screen);
+  border: 2px solid var(--line);
+}
+
+.shakeFrame {
+  animation: wrongShake 0.3s ease-out;
+}
+
+.sprite {
+  image-rendering: pixelated;
+}
+
+.silhouette {
+  filter: brightness(0) opacity(0.82);
+}
+
+.revealed {
+  filter: none;
+  animation: revealPokemon 0.45s ease-out;
 }
 
 .actionArea {
   position: relative;
-  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 34px;
 }
 
 .scorePop {
   position: absolute;
-  top: -20px;
-  right: 0;
+  top: -12px;
+  left: 50%;
+  z-index: 3;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  color: var(--accent);
+  pointer-events: none;
+  animation: scorePop 0.8s ease-out forwards;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px;
+  width: 100%;
+}
+
+.form input {
+  min-width: 0;
+  height: 30px;
+  padding: 4px 7px;
+  border: 2px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg-surface);
+  color: var(--ink);
+  font-family: var(--font-body);
   font-size: 16px;
-  font-weight: 700;
-  color: #4caf50;
-  animation: popUp 0.6s ease-out forwards;
+  outline: none;
+}
+
+.form input:focus {
+  box-shadow: 2px 2px 0 var(--line-soft);
+}
+
+.form button {
+  height: 30px;
+  padding: 4px 8px;
+  border: 2px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-heading);
+  font-size: 7px;
+  cursor: pointer;
+}
+
+.form button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 var(--line-soft);
+}
+
+.wrong {
+  grid-column: 1 / -1;
+  font-family: var(--font-heading);
+  font-size: 7px;
+  color: var(--accent);
+  text-align: center;
+  margin-top: 2px;
 }
 
 .answer {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-}
-
-.answer span {
-  font-size: 14px;
-  font-weight: 600;
-  color: #ff3b30;
-}
-
-.correctAnswer span {
-  color: #4caf50;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-heading);
+  font-size: 8px;
+  text-align: center;
 }
 
 .answer strong {
-  font-size: 16px;
-  color: #1d1d1f;
+  font-size: 10px;
+  color: var(--accent);
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.correctAnswer {
+  animation: correctAnswer 0.45s ease-out;
 }
 
-.form input {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1px solid #d2d2d7;
-  border-radius: 8px;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.2s ease;
+@keyframes correctCard {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.025);
+  }
+  65% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-.form input:focus {
-  border-color: #0071e3;
+@keyframes revealPokemon {
+  0% {
+    opacity: 0;
+    transform: scale(0.65);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-.form button {
-  padding: 10px 16px;
-  background-color: #0071e3;
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+@keyframes scorePop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 4px) scale(0.7);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -4px) scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -24px) scale(1);
+  }
 }
 
-.form button:hover {
-  background-color: #0077ed;
+@keyframes recordPulse {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.15);
+  }
+  65% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-.hiddenForm {
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
+@keyframes correctAnswer {
+  0% {
+    opacity: 0;
+    transform: translateY(5px) scale(0.9);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-1px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
 }
 
-.wrong {
-  font-size: 12px;
-  color: #ff3b30;
+@keyframes wrongShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
 }
 
-@keyframes shake {
-  10%, 90% { transform: translate3d(-1px, 0, 0); }
-  20%, 80% { transform: translate3d(2px, 0, 0); }
-  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-  40%, 60% { transform: translate3d(4px, 0, 0); }
-}
+@media (max-width: 420px) {
+  .container {
+    margin-top: var(--sp-6);
+  }
 
-@keyframes popUp {
-  0% { opacity: 0; transform: translateY(0); }
-  50% { opacity: 1; transform: translateY(-10px); }
-  100% { opacity: 0; transform: translateY(-20px); }
+  .card {
+    width: min(100%, 320px);
+  }
+
+  .contentWrapper {
+    gap: 8px;
+  }
+
+  .frame {
+    width: 64px;
+    height: 64px;
+  }
 }

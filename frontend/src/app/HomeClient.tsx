@@ -11,12 +11,6 @@ import PokemonCard from "@/components/PokemonCard"
 import TypeBadge from "@/components/TypeBadge"
 import { officialArtUrl, ROSTER, TYPE_COLORS, type ElementType } from "@/lib/pokedex"
 
-const stats = [
-  { value: "MBBS", label: "Goal" },
-  { value: "2+", label: "Years Writing" },
-  { value: "Nepal", label: "Home Region" }
-]
-
 const commands = [
   { label: "FIGHT", sub: "Profile", href: "/about", variant: "fight" },
   { label: "BAG", sub: "Pokedex", href: "/blog", variant: "bag" },
@@ -48,8 +42,8 @@ const party: readonly (ActiveSlot | LockedSlot)[] = [
     slot: "Slot 01",
     title: "Medicine",
     desc: "Passionate about human anatomy, clinical sciences, and the art of healing.",
-    pokemonId: ROSTER.chikorita,
-    type: "water",
+    pokemonId: ROSTER.chansey,
+    type: "normal",
     level: 42,
     exp: 68,
     moves: ["Diagnose", "Steady Hands", "Bedside Manner"]
@@ -179,15 +173,6 @@ export default function HomeClient() {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className={styles.hud}>
-            {stats.map(s => (
-              <div key={s.label} className={styles.hudChip}>
-                <span className={styles.hudValue}>{s.value}</span>
-                <span className={styles.hudLabel}>{s.label}</span>
-              </div>
-            ))}
           </div>
         </div>
       </section>

@@ -7,7 +7,6 @@ import { Menu, X, Volume2, VolumeX } from "lucide-react"
 import styles from "./Navbar.module.css"
 import { usePalette, type Palette } from "./ThemeProvider"
 import { useGameSound } from "./SoundProvider"
-import WhosThatPokemon from "./WhosThatPokemon"
 
 const links = [
   { href: "/", label: "Home" },
@@ -26,7 +25,7 @@ const palettes: { key: Palette; color: string; label: string }[] = [
 export default function Navbar() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
-  const navRef = useRef<HTMLElement>(null) // Fixed typings
+  const navRef = useRef<HTMLElement>(null)
   const { palette, setPalette } = usePalette()
   const { muted, toggleMuted, playClick } = useGameSound()
 
@@ -47,7 +46,6 @@ export default function Navbar() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href)
 
-  // Extracted Palette Switcher component for DRYness
   const PaletteSelector = () => (
     <>
       {palettes.map(p => (
@@ -77,7 +75,6 @@ export default function Navbar() {
           <span>Aashutosh Dhungel</span>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className={styles.nav} aria-label="Main navigation">
           {links.map(link => (
             <Link
@@ -96,8 +93,6 @@ export default function Navbar() {
             <PaletteSelector />
           </div>
 
-          <WhosThatPokemon />
-
           <button
             className={styles.iconBtn}
             onClick={toggleMuted}
@@ -106,7 +101,6 @@ export default function Navbar() {
             {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
           </button>
 
-          {/* Mobile Menu Wrapper */}
           <div className={styles.mobileWrapper}>
             <button
               className={styles.burger}

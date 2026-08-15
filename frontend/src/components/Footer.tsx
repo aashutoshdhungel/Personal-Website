@@ -1,12 +1,45 @@
 import Link from "next/link"
-import { Facebook, Linkedin, PenLine, ArrowUpRight } from "lucide-react"
+import Image from "next/image"
+import { Facebook, Linkedin, Code, ArrowUpRight } from "lucide-react"
 import styles from "./Footer.module.css"
-import TeamRocketBalloon from "./TeamRocketBalloon"
+import WhosThatPokemon from "./WhosThatPokemon"
+
+const NAV_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "Trainer" },
+  { href: "/blog", label: "Pokedex" },
+  { href: "/notes", label: "Item Bag" },
+  { href: "/contact", label: "PC" },
+]
+
+const SOCIAL_LINKS = [
+  {
+    href: "https://www.facebook.com/dhungelaashutosh",
+    label: "Facebook",
+    icon: Facebook,
+  },
+  {
+    href: "https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/",
+    label: "LinkedIn",
+    icon: Linkedin,
+  },
+]
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <footer className={styles.footer}>
-      <TeamRocketBalloon />
+      <div className={styles.balloonWrapper}>
+        <Image
+          src="/rocket.png"
+          alt="Team Rocket Meowth Balloon"
+          width={120}
+          height={120}
+          className={styles.balloonImage}
+          priority
+        />
+      </div>
       <div className="container">
         <div className={styles.main}>
           <div className={styles.brand}>
@@ -20,55 +53,57 @@ export default function Footer() {
           </div>
 
           <div>
-            <span className={styles.colLabel}>Navigate</span>
+            <h3 className={styles.colLabel}>Navigate</h3>
             <nav className={styles.links} aria-label="Footer navigation">
-              <Link href="/">Home</Link>
-              <Link href="/about">Trainer</Link>
-              <Link href="/blog">Pokedex</Link>
-              <Link href="/notes">Item Bag</Link>
-              <Link href="/contact">PC</Link>
+              {NAV_LINKS.map((link) => (
+                <Link key={link.href} href={link.href}>
+                  {link.label}
+                </Link>
+              ))}
             </nav>
           </div>
 
           <div>
-            <span className={styles.colLabel}>Connect</span>
+            <h3 className={styles.colLabel}>Connect</h3>
             <div className={styles.socials}>
-              <a
-                href="https://www.facebook.com/dhungelaashutosh"
-                target="_blank"
-                rel="noreferrer"
-                className={styles.socialLink}
-              >
-                <Facebook size={15} />
-                <span>Facebook</span>
-                <ArrowUpRight size={12} style={{ opacity: 0.6 }} />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/aashutosh-dhungel-01b5bb393/"
-                target="_blank"
-                rel="noreferrer"
-                className={styles.socialLink}
-              >
-                <Linkedin size={15} />
-                <span>LinkedIn</span>
-                <ArrowUpRight size={12} style={{ opacity: 0.6 }} />
-              </a>
+              {SOCIAL_LINKS.map((social) => {
+                const IconComponent = social.icon
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.socialLink}
+                  >
+                    <IconComponent size={15} aria-hidden="true" />
+                    <span>{social.label}</span>
+                    <ArrowUpRight size={12} className={styles.externalIcon} aria-hidden="true" />
+                    <span className={styles.srOnly}>(opens in a new tab)</span>
+                  </a>
+                )
+              })}
             </div>
           </div>
         </div>
 
+        <WhosThatPokemon />
+
         <div className={styles.bottom}>
-          <span>Aashutosh Dhungel {new Date().getFullYear()}, all trainers reserved</span>
+          <span>
+            © {currentYear} Aashutosh Dhungel, all trainers reserved
+          </span>
           <span>
             crafted by{" "}
             <a
               href="https://prasant-bhattarai.com.np"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className={styles.creditLink}
             >
-              <PenLine size={13} />
-              Prasant Bhattarai
+              <Code size={13} aria-hidden="true" />
+              <span>Prasant Bhattarai</span>
+              <span className={styles.srOnly}>(opens in a new tab)</span>
             </a>
           </span>
         </div>

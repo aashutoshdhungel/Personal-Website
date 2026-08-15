@@ -1,6 +1,8 @@
 // Element type palette and sprite helpers
 // Colors sourced from classic Pokemon type chart
 
+import { POKEMON_NAMES } from "./pokemonNames"
+
 export type ElementType =
   | "grass"
   | "poison"
@@ -39,9 +41,10 @@ export const TYPE_LABELS: Record<ElementType, string> = {
   rock: "Rock"
 }
 
-// Sprite base from the public PokeAPI sprite repository
+// Sprite base from the public PokeAPI sprite repository, served via the
+// jsdelivr GitHub CDN mirror for much faster, cached global delivery
 const SPRITE_BASE =
-  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon"
+  "https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/pokemon"
 
 export function spriteUrl(id: number, shiny = false) {
   return shiny
@@ -71,9 +74,9 @@ export function animatedBackSpriteUrl(id: number, shiny = false) {
 // Action states supported by the PMD sprite sheets
 export type PmdAction = "idle" | "walk" | "attack" | "sleep"
 
-// Base for the PMDCollab animated sprite repository
+// Base for the PMDCollab animated sprite repository, served via jsdelivr
 const PMD_SPRITE_BASE =
-  "https://raw.githubusercontent.com/PMDCollab/SpriteCollab/main/sprite"
+  "https://cdn.jsdelivr.net/gh/PMDCollab/SpriteCollab@main/sprite"
 
 // Utility helper: PMDCollab repository requires 4-digit padded Dex IDs (e.g. 1 -> "0001")
 export function padPokemonId(id: number): string {
@@ -120,6 +123,7 @@ export const ROSTER = {
   haunter: 93,
   gengar: 94,
   drowzee: 96,
+  chansey: 113,
   eevee: 133,
   snorlax: 143,
   dragonite: 149,
@@ -147,4 +151,44 @@ export const SUBJECT_TYPE: Record<string, ElementType> = {
   Botany: "grass",
   Zoology: "water",
   Anatomy: "rock"
+}
+
+// ---------------------------------------------------------------------------
+// "Who's That Pokemon?" mystery pokemon helpers
+// ---------------------------------------------------------------------------
+
+export interface MysteryPokemon {
+  id: number
+  name: string
+}
+
+// Total number of pokemon supported (National Dex, Gen 1-9)
+export const TOTAL_POKEMON = POKEMON_NAMES.length
+
+// Pairs a 1-based national dex ID with its formatted display name.
+// Throws if the id is out of range so bad data fails loudly during development.
+export function getMysteryPokemon(id: number): MysteryPokemon {
+  const name = POKEMON_NAMES[id - 1]
+
+  if (!name) {
+    throw new Error(`getMysteryPokemon: no pokemon found for id ${id}`)
+  }
+
+  return { id, name }
+}
+
+// Returns a random mystery pokemon from the full Gen 1-9 roster.
+// Optionally excludes `currentId` so the same pokemon doesn't repeat back-to-back.
+export function getRandomPokemon(currentId?: number): MysteryPokemon {
+  if (TOTAL_POKEMON <= 1) {
+    return getMysteryPokemon(1)
+  }
+
+  let nextId = Math.floor(Math.random() * TOTAL_POKEMON) + 1
+
+  while (nextId === currentId) {
+    nextId = Math.floor(Math.random() * TOTAL_POKEMON) + 1
+  }
+
+  return getMysteryPokemon(nextId)
 }

@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Press_Start_2P, VT323 } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/Navbar"
@@ -49,9 +49,19 @@ export const metadata: Metadata = {
   creator: "Aashutosh Dhungel",
   robots: { index: true, follow: true },
   icons: {
-    icon: "/favicon.png"
+    icon: [
+      { url: "/favicon.png", sizes: "64x64", type: "image/png" },
+      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512x512.png", sizes: "512x512", type: "image/png" }
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }]
   },
   manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    title: "Dhungel Dex",
+    statusBarStyle: "default"
+  },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
@@ -74,6 +84,10 @@ export const metadata: Metadata = {
     description: DEFAULT_DESC,
     images: ["/pfp.jpeg"]
   }
+}
+
+export const viewport: Viewport = {
+  themeColor: "#d62d20"
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

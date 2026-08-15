@@ -64,4 +64,4 @@ coverage
 .parcel-cache
 .eslintcache
 
-*/frontend-react/*
+frontend-react

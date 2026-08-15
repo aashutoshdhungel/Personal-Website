@@ -33,8 +33,7 @@ export default function WhosThatPokemon() {
 
   useEffect(() => {
     isMountedRef.current = true
-    
-    // Defer random initial state generation to client mount to fix hydration mismatch
+
     const initialChoice = getRandomPokemon()
     setChoice(initialChoice)
     setNextChoice(getRandomPokemon(initialChoice.id))
@@ -135,7 +134,8 @@ export default function WhosThatPokemon() {
     })
   }
 
-  // Fallback state for initial SSR render phase
+  const isResolved = result === "correct" || result === "failed"
+
   if (!choice || !nextChoice) {
     return <section className={styles.container} aria-label="Who's That Pokémon" />
   }
@@ -153,9 +153,7 @@ export default function WhosThatPokemon() {
               height={64}
               loading="eager"
               decoding="async"
-              className={`${styles.sprite} ${
-                result === "correct" || result === "failed" ? styles.revealed : styles.silhouette
-              }`}
+              className={`${styles.sprite} ${isResolved ? styles.revealed : styles.silhouette}`}
             />
           </div>
 
@@ -175,39 +173,61 @@ export default function WhosThatPokemon() {
               </div>
             </div>
 
-            <div className={styles.actionArea}>
+            <div className={styles.actionArea} style={{ position: "relative" }}>
               {scoreAnimation && result === "correct" && (
                 <span className={styles.scorePop}>+1</span>
               )}
 
-              {result === "correct" ? (
+              {/* Display answer banner when revealed */}
+              {result === "correct" && (
                 <div className={`${styles.answer} ${styles.correctAnswer}`}>
                   <span>Correct!</span>
                   <strong>It&apos;s {choice.name}</strong>
                 </div>
-              ) : result === "failed" ? (
+              )}
+              {result === "failed" && (
                 <div className={styles.answer}>
                   <span>Out of chances!</span>
                   <strong>It&apos;s {choice.name}</strong>
                 </div>
-              ) : (
-                <form className={styles.form} onSubmit={submitGuess}>
-                  <input
-                    ref={inputRef}
-                    value={guess}
-                    onChange={(event) => setGuess(event.target.value)}
-                    placeholder="Your guess..."
-                    aria-label="Guess the Pokémon"
-                    autoComplete="off"
-                  />
-
-                  <button type="submit">Go</button>
-
-                  {result === "wrong" && (
-                    <span className={styles.wrong}>Not quite. {2 - attempts} chance left.</span>
-                  )}
-                </form>
               )}
+
+              {/* Form stays mounted in exact position. When resolved, visually overlays 
+                  transparently so input remains focused and soft-keyboard stays open. */}
+              <form
+                className={styles.form}
+                onSubmit={submitGuess}
+                style={
+                  isResolved
+                    ? {
+                        opacity: 0,
+                        pointerEvents: "none",
+                        position: "absolute",
+                        inset: 0,
+                      }
+                    : undefined
+                }
+              >
+                <input
+                  ref={inputRef}
+                  value={guess}
+                  onChange={(event) => setGuess(event.target.value)}
+                  placeholder="Your guess..."
+                  aria-label="Guess the Pokémon"
+                  autoComplete="off"
+                  readOnly={isResolved}
+                />
+
+                <button type="submit" tabIndex={isResolved ? -1 : 0}>
+                  Go
+                </button>
+
+                {result === "wrong" && (
+                  <span className={styles.wrong}>
+                    Not quite. {2 - attempts} chance left.
+                  </span>
+                )}
+              </form>
             </div>
           </div>
         </div>

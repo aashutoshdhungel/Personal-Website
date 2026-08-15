@@ -1,0 +1,322 @@
+@import "nes.css/css/nes.min.css";
+
+:root {
+  --pixel-border: 4px;
+  --r-sm: 2px;
+  --r-md: 6px;
+  --r-lg: 14px;
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+
+  --nav-h: 72px;
+
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 150ms;
+  --dur-base: 260ms;
+  --dur-slow: 420ms;
+
+  /* Pokedex Red palette, default */
+  --bg: #f4e9d8;
+  --bg-surface: #ffe1d6;
+  --bg-card: #fffaf3;
+  --bg-nav: rgba(214, 45, 32, 0.97);
+  --ink: #241a14;
+  --ink-2: #5a4a3e;
+  --ink-3: #8a7a6a;
+  --accent: #d62d20;
+  --accent-2: #ffcb05;
+  --accent-ink: #ffffff;
+  --line: #241a14;
+  --line-soft: rgba(36, 26, 20, 0.25);
+  --screen: #9bbc0f;
+}
+
+[data-palette="gameboy"] {
+  --bg: #c4cfa1;
+  --bg-surface: #b3c186;
+  --bg-card: #dde8c5;
+  --bg-nav: #6b7353;
+  --ink: #2b3320;
+  --ink-2: #45502f;
+  --ink-3: #6b7856;
+  --accent: #435022;
+  --accent-2: #8fac3f;
+  --accent-ink: #dde8c5;
+  --line: #2b3320;
+  --line-soft: rgba(43, 51, 32, 0.3);
+  --screen: #9bbc0f;
+}
+
+[data-palette="dark"] {
+  --bg: #10131f;
+  --bg-surface: #171b2c;
+  --bg-card: #1e2338;
+  --bg-nav: rgba(16, 19, 31, 0.97);
+  --ink: #eef0fb;
+  --ink-2: #a7adc9;
+  --ink-3: #6a7096;
+  --accent: #ff5c5c;
+  --accent-2: #ffd23d;
+  --accent-ink: #10131f;
+  --line: #3a4066;
+  --line-soft: rgba(255, 255, 255, 0.12);
+  --screen: #5fd068;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  transition: background var(--dur-slow) var(--ease-out), color var(--dur-slow) var(--ease-out);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.05) 0px,
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      to right,
+      var(--line-soft) 0px,
+      var(--line-soft) 1px,
+      transparent 1px,
+      transparent 24px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      var(--line-soft) 0px,
+      var(--line-soft) 1px,
+      transparent 1px,
+      transparent 24px
+    );
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+}
+
+[data-palette="dark"] body::after {
+  mix-blend-mode: screen;
+  opacity: 0.25;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    opacity: 0.2;
+  }
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.3;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+}
+
+.section-pad {
+  padding: var(--sp-16) 0;
+}
+
+.page-wrapper {
+  padding-top: var(--nav-h);
+  min-height: 100vh;
+}
+
+.pixel-border {
+  border: var(--pixel-border) solid var(--line);
+  box-shadow: 6px 6px 0 var(--line-soft);
+  image-rendering: pixelated;
+}
+
+.label-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--bg-card);
+  border: 2px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 6px 10px;
+}
+
+.section-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+  color: var(--ink);
+  margin-top: var(--sp-3);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 12px 20px;
+  border: 3px solid var(--line);
+  border-radius: var(--r-sm);
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  box-shadow: 4px 4px 0 var(--line);
+  background: var(--bg-card);
+  color: var(--ink);
+}
+
+.btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--line);
+}
+
+.btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--line);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.btn-secondary {
+  background: var(--accent-2);
+  color: var(--ink);
+}
+
+.btn-ghost {
+  background: transparent;
+}
+
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 999px;
+  color: #fff;
+  border: 2px solid var(--line);
+}
+
+.stat-track {
+  height: 12px;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-surface);
+  overflow: hidden;
+}
+
+.stat-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.stat-item__row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.stat-item__name {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.stat-item__pct {
+  color: var(--ink-3);
+  font-family: var(--font-heading);
+  font-size: 11px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-d1 { transition-delay: 80ms; }
+.reveal-d2 { transition-delay: 160ms; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim-up {
+  animation: fadeUp var(--dur-slow) var(--ease-out) both;
+}
+
+.anim-up-1 { animation-delay: 80ms; }
+.anim-up-2 { animation-delay: 160ms; }
+.anim-up-3 { animation-delay: 240ms; }
+
+@media (max-width: 860px) {
+  .section-pad {
+    padding: var(--sp-10) 0;
+  }
+}

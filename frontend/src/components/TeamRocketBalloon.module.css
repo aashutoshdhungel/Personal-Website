@@ -1,0 +1,68 @@
+.balloon {
+  position: absolute;
+  right: 4%;
+  top: -46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.55;
+  transform-origin: top center;
+  pointer-events: none;
+}
+
+.envelope {
+  width: 34px;
+  height: 42px;
+  border-radius: 50% 50% 46% 46%;
+  background: radial-gradient(circle at 35% 30%, #ff6b6b, #b3261e 70%);
+  border: 2px solid var(--line);
+}
+
+.envelope::after {
+  content: "R";
+  display: block;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  color: #fff;
+  line-height: 42px;
+}
+
+.basket {
+  width: 28px;
+  height: 22px;
+  margin-top: -4px;
+  border: 2px solid var(--line);
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sprite {
+  image-rendering: pixelated;
+}
+
+.wiggle {
+  animation: balloonWiggle 3.6s ease-in-out infinite;
+}
+
+@keyframes balloonWiggle {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50% { transform: rotate(3deg) translateY(-4px); }
+}
+
+@media (max-width: 620px) {
+  .balloon {
+    right: 8px;
+    top: -36px;
+  }
+  .envelope {
+    width: 26px;
+    height: 32px;
+  }
+  .basket {
+    width: 22px;
+    height: 18px;
+  }
+}

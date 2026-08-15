@@ -1,0 +1,540 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--sp-10);
+}
+
+.screenBezel {
+  position: relative;
+  border: var(--pixel-border) solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg-surface);
+  box-shadow: 10px 10px 0 var(--line-soft);
+  padding: var(--sp-8) var(--sp-6) var(--sp-6);
+  transform: rotate(-0.4deg);
+}
+
+.bezelDots {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.bezelDots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--line);
+  opacity: 0.35;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: var(--sp-8);
+  align-items: start;
+}
+
+.dialogueCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.speechBox {
+  position: relative;
+  background: var(--bg-card);
+  border: var(--pixel-border) solid var(--line);
+  border-radius: var(--r-sm);
+  box-shadow: 6px 6px 0 var(--line-soft);
+  padding: var(--sp-5) var(--sp-8) var(--sp-5) var(--sp-5);
+}
+
+.speechText {
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.speechArrow {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 9px solid var(--ink);
+  animation: blink 1s step-end infinite;
+}
+
+.nameplate {
+  transform: rotate(0.6deg);
+}
+
+.typing {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  color: var(--accent);
+  min-height: 1.2em;
+  margin-bottom: var(--sp-3);
+}
+
+.typing::after {
+  content: "_";
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.title em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.subtitle {
+  margin-top: var(--sp-4);
+  font-size: 18px;
+  color: var(--ink-2);
+  max-width: 48ch;
+}
+
+.commandBox {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+  max-width: 420px;
+  transform: rotate(0.8deg);
+}
+
+.commandBtn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 3px solid var(--line);
+  border-left: 8px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg-card);
+  color: var(--ink);
+  box-shadow: 5px 5px 0 var(--line);
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.commandBtn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+.commandBtn:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 var(--line);
+}
+
+.commandLabel {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.commandSub {
+  font-size: 13px;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cmd_fight { border-left-color: var(--accent); }
+.cmd_bag { border-left-color: var(--accent-2); }
+.cmd_pokemon { border-left-color: var(--screen); }
+.cmd_run { border-left-color: var(--ink-3); }
+
+.trainerCard {
+  background: var(--bg-card);
+  border: var(--pixel-border) solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: 8px 8px 0 var(--line-soft);
+  padding: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  transform: rotate(-1.4deg);
+}
+
+.trainerCardHead {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trainerBadge {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 2px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 4px 8px;
+}
+
+.trainerClass {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  color: var(--ink-2);
+  text-transform: uppercase;
+}
+
+.photoFrame {
+  width: 220px;
+  height: 220px;
+  overflow: hidden;
+  border: var(--pixel-border) solid var(--line);
+  box-shadow: 6px 6px 0 var(--line-soft);
+  background: var(--screen);
+  clip-path: polygon(
+    14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px
+  );
+}
+
+.photoFrame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trainerName {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  text-align: center;
+}
+
+.trainerSub {
+  font-size: 14px;
+  color: var(--ink-3);
+  text-align: center;
+  margin-top: -6px;
+}
+
+.hpRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: var(--sp-2);
+}
+
+.hpLabel {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  color: var(--accent);
+}
+
+.hpTrack {
+  flex: 1;
+  height: 12px;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-surface);
+  overflow: hidden;
+}
+
+.hpFill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #6fcf5b, #a4e864);
+  animation: hpFillAnim 1.4s var(--ease-out) 0.3s forwards;
+}
+
+@keyframes hpFillAnim {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.hpValue {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.hud {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+  padding: var(--sp-8) 0 var(--sp-10);
+}
+
+.hudChip {
+  text-align: center;
+  padding: var(--sp-4);
+  border: var(--pixel-border) solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-card);
+  box-shadow: 5px 5px 0 var(--line-soft);
+}
+
+.hudChip:nth-child(odd) {
+  transform: rotate(-0.6deg);
+}
+
+.hudChip:nth-child(even) {
+  transform: rotate(0.6deg);
+}
+
+.hudValue {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--accent);
+}
+
+.hudLabel {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--ink-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.partyHeader {
+  max-width: 62ch;
+  margin-bottom: var(--sp-8);
+}
+
+.partyDesc {
+  margin-top: var(--sp-3);
+  font-size: 17px;
+  color: var(--ink-2);
+}
+
+.partyGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-5);
+}
+
+.partySlot {
+  padding: var(--sp-5);
+  border: var(--pixel-border) solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-card);
+  box-shadow: 5px 5px 0 var(--line-soft);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.partySlot:nth-child(3n+1) { transform: rotate(-0.8deg); }
+.partySlot:nth-child(3n+2) { transform: rotate(0.5deg); }
+.partySlot:nth-child(3n+3) { transform: rotate(-0.4deg); }
+
+.partySlot:hover {
+  transform: translateY(-4px);
+}
+
+.partySlotLocked {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-style: dashed;
+  box-shadow: none;
+  transform: none;
+  color: var(--ink-3);
+  min-height: 220px;
+}
+
+.partySlotLocked:hover {
+  transform: none;
+}
+
+.lockedLabel {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  margin-top: var(--sp-2);
+}
+
+.lockedSub {
+  font-size: 13px;
+  color: var(--ink-3);
+  max-width: 22ch;
+}
+
+.partySlotTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slotIndex {
+  font-family: var(--font-heading);
+  font-size: 9px;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+.partySprite {
+  width: 64px;
+  height: 64px;
+  align-self: center;
+  image-rendering: pixelated;
+}
+
+.partyName {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  text-align: center;
+}
+
+.partyText {
+  font-size: 14px;
+  color: var(--ink-2);
+  text-align: center;
+}
+
+.levelRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: var(--sp-1);
+}
+
+.levelValue {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.expTrack {
+  flex: 1;
+  height: 8px;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-surface);
+  overflow: hidden;
+}
+
+.expFill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.moveset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--sp-1);
+}
+
+.moveChip {
+  font-family: var(--font-heading);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 5px 8px;
+  border: 2px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg-surface);
+  color: var(--ink-2);
+}
+
+.postsHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-8);
+  flex-wrap: wrap;
+}
+
+.postsFrame {
+  border: var(--pixel-border) solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-surface);
+  box-shadow: 8px 8px 0 var(--line-soft);
+  padding: var(--sp-5);
+}
+
+.postsFrameBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  color: var(--ink-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--sp-4);
+}
+
+.postsFrameDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--sp-5);
+}
+
+.postsFooter {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--sp-10);
+}
+
+@media (max-width: 900px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+  .trainerCard {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  .partyGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .hud {
+    grid-template-columns: 1fr;
+  }
+  .partyGrid {
+    grid-template-columns: 1fr;
+  }
+  .screenBezel {
+    padding: var(--sp-6) var(--sp-4) var(--sp-4);
+  }
+  .photoFrame {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media (max-width: 400px) {
+  .commandBox {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+}

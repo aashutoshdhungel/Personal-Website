@@ -1,0 +1,192 @@
+.hero {
+  padding: var(--sp-16) 0 var(--sp-10);
+}
+
+.heroInner {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: var(--sp-8);
+  align-items: start;
+}
+
+.heroTitle {
+  margin-top: var(--sp-3);
+}
+
+.heroTitle em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.intro {
+  margin-top: var(--sp-5);
+  font-size: 18px;
+  color: var(--ink-2);
+  max-width: 55ch;
+}
+
+.quoteCard {
+  padding: var(--sp-6);
+  border: var(--pixel-border) solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-card);
+  box-shadow: 6px 6px 0 var(--line-soft);
+}
+
+.quote {
+  font-size: 16px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+.quoteAttr {
+  margin-top: var(--sp-3);
+  font-family: var(--font-heading);
+  font-size: 10px;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: var(--sp-8);
+}
+
+.card {
+  border: var(--pixel-border) solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-card);
+  box-shadow: 6px 6px 0 var(--line-soft);
+  overflow: hidden;
+}
+
+.cardHead {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  padding: var(--sp-4);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.infoList {
+  list-style: none;
+  margin: 0;
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.infoItem {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+}
+
+.infoIcon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--line);
+  border-radius: var(--r-sm);
+  color: var(--accent);
+}
+
+.infoKey {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-3);
+}
+
+.infoVal {
+  display: block;
+  margin-top: 2px;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  margin-bottom: var(--sp-5);
+}
+
+.statList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.statItemRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.timelineSection {
+  padding: var(--sp-16) 0;
+}
+
+.timelineHeader {
+  margin-bottom: var(--sp-8);
+}
+
+.badgeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--sp-6);
+}
+
+.badgeCard {
+  text-align: center;
+  padding: var(--sp-6) var(--sp-4);
+  border: var(--pixel-border) solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg-card);
+  box-shadow: 6px 6px 0 var(--line-soft);
+}
+
+.badgeIcon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto var(--sp-3);
+  border-radius: 50%;
+  background: var(--accent-2);
+  border: 3px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+}
+
+.badgeYear {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.badgeTitle {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  margin-top: var(--sp-2);
+  line-height: 1.6;
+}
+
+.badgeDesc {
+  margin-top: var(--sp-3);
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+@media (max-width: 900px) {
+  .heroInner, .layout {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Aashutosh Dhungel",
+  "short_name": "Dhungel Dex",
+  "description": "Medical aspirant, poet, and writer, reimagined as an interactive Pokedex portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4e9d8",
+  "theme_color": "#d62d20",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}

@@ -44,6 +44,7 @@ interface EntityState {
   lifetimeUntil: number
 }
 
+// walking ground pokemon pool
 const WALKER_POOL: Array<{ id: number; name: string }> = [
   { id: ROSTER.bulbasaur, name: "Bulbasaur" },
   { id: ROSTER.ivysaur, name: "Ivysaur" },
@@ -62,8 +63,18 @@ const WALKER_POOL: Array<{ id: number; name: string }> = [
   { id: ROSTER.chikorita, name: "Chikorita" },
   { id: ROSTER.totodile, name: "Totodile" },
   { id: ROSTER.dragonite, name: "Dragonite" },
+  { id: ROSTER.mewtwo, name: "Mewtwo" },
+  { id: ROSTER.mew, name: "Mew" },
+  { id: ROSTER.umbreon, name: "Umbreon" },
+  { id: ROSTER.tyranitar, name: "Tyranitar" },
+  { id: ROSTER.blaziken, name: "Blaziken" },
+  { id: ROSTER.gardevoir, name: "Gardevoir" },
+  { id: ROSTER.garchomp, name: "Garchomp" },
+  { id: ROSTER.lucario, name: "Lucario" },
+  { id: ROSTER.greninja, name: "Greninja" },
 ]
 
+// flying and floating pokemon pool
 const FLOATER_POOL: Array<{ id: number; name: string }> = [
   { id: ROSTER.gastly, name: "Gastly" },
   { id: ROSTER.haunter, name: "Haunter" },
@@ -71,8 +82,16 @@ const FLOATER_POOL: Array<{ id: number; name: string }> = [
   { id: ROSTER.celebi, name: "Celebi" },
   { id: ROSTER.rayquaza, name: "Rayquaza" },
   { id: ROSTER.dialga, name: "Dialga" },
+  { id: ROSTER.articuno, name: "Articuno" },
+  { id: ROSTER.zapdos, name: "Zapdos" },
+  { id: ROSTER.moltres, name: "Moltres" },
+  { id: ROSTER.lugia, name: "Lugia" },
+  { id: ROSTER.hooh, name: "Ho-Oh" },
+  { id: ROSTER.absol, name: "Absol" },
+  { id: ROSTER.mimikyu, name: "Mimikyu" },
 ]
 
+// unique signature move and vfx per pokemon
 const ATTACK_MOVES: Record<
   number,
   { text: string; effect: AttackEffect }
@@ -169,8 +188,73 @@ const ATTACK_MOVES: Record<
     text: "Dialga used Roar of Time",
     effect: "pulse",
   },
+  [ROSTER.mewtwo]: {
+    text: "Mewtwo used Psystrike",
+    effect: "pulse",
+  },
+  [ROSTER.mew]: {
+    text: "Mew used Aura Sphere",
+    effect: "glow",
+  },
+  [ROSTER.umbreon]: {
+    text: "Umbreon used Foul Play",
+    effect: "glow",
+  },
+  [ROSTER.tyranitar]: {
+    text: "Tyranitar used Stone Edge",
+    effect: "burst",
+  },
+  [ROSTER.blaziken]: {
+    text: "Blaziken used Blaze Kick",
+    effect: "flash",
+  },
+  [ROSTER.gardevoir]: {
+    text: "Gardevoir used Dazzling Gleam",
+    effect: "flash",
+  },
+  [ROSTER.garchomp]: {
+    text: "Garchomp used Dragon Claw",
+    effect: "wave",
+  },
+  [ROSTER.lucario]: {
+    text: "Lucario used Close Combat",
+    effect: "burst",
+  },
+  [ROSTER.greninja]: {
+    text: "Greninja used Hydro Pump",
+    effect: "wave",
+  },
+  [ROSTER.articuno]: {
+    text: "Articuno used Blizzard",
+    effect: "wave",
+  },
+  [ROSTER.zapdos]: {
+    text: "Zapdos used Thunder",
+    effect: "flash",
+  },
+  [ROSTER.moltres]: {
+    text: "Moltres used Fire Blast",
+    effect: "burst",
+  },
+  [ROSTER.lugia]: {
+    text: "Lugia used Aeroblast",
+    effect: "pulse",
+  },
+  [ROSTER.hooh]: {
+    text: "Ho-Oh used Sacred Fire",
+    effect: "glow",
+  },
+  [ROSTER.absol]: {
+    text: "Absol used Night Slash",
+    effect: "burst",
+  },
+  [ROSTER.mimikyu]: {
+    text: "Mimikyu used Shadow Claw",
+    effect: "glow",
+  },
 }
 
+// idle click reaction lines, 3 per pokemon
 const REACTIONS: Record<number, string[]> = {
   [ROSTER.bulbasaur]: ["Bulba!", "Bulbasaur!", "Bulba Bulba"],
   [ROSTER.ivysaur]: ["Ivy!", "Ivysaur!", "Ivy Ivy"],
@@ -195,8 +279,23 @@ const REACTIONS: Record<number, string[]> = {
   [ROSTER.celebi]: ["Celebi!", "Time traveler!", "Cele cele"],
   [ROSTER.rayquaza]: ["Sky High!", "Rayquaza!", "Ray!"],
   [ROSTER.dialga]: ["Time warps!", "Dialga!", "Roar of Time"],
+  [ROSTER.mewtwo]: ["Mewtwo...", "I am the strongest", "Psystrike!"],
+  [ROSTER.mew]: ["Mew!", "Myuu~", "Playful psychic!"],
+  [ROSTER.umbreon]: ["Umbreon...", "Moonlight glow", "Umbre..."],
+  [ROSTER.tyranitar]: ["Tyranitar!", "RAWR!", "Sandstorm rising"],
+  [ROSTER.blaziken]: ["Blaziken!", "Blaze!", "Fired up!"],
+  [ROSTER.gardevoir]: ["Gardevoir!", "I protect you", "Psychic grace"],
+  [ROSTER.garchomp]: ["Garchomp!", "Gar gar!", "Mach speed!"],
+  [ROSTER.lucario]: ["Lucario!", "I sense your aura", "Riolu evolved!"],
+  [ROSTER.greninja]: ["Greninja!", "Ninja frog!", "Water shuriken!"],
+  [ROSTER.articuno]: ["Articuno...", "Frozen wings", "Legendary bird"],
+  [ROSTER.zapdos]: ["ZAP!", "Zapdos!", "Thunder wings"],
+  [ROSTER.moltres]: ["Moltres!", "Blazing feathers", "Fire bird!"],
+  [ROSTER.lugia]: ["Lugia...", "Guardian of the seas", "Silver wings"],
+  [ROSTER.hooh]: ["Ho-Oh!", "Rainbow wings", "Legendary phoenix"],
+  [ROSTER.absol]: ["Absol!", "Disaster sensed", "Ab sol!"],
+  [ROSTER.mimikyu]: ["Mimikyu!", "Don't look...", "Mimi mimi"],
 }
-
 const ATTACK_DURATION = 1500
 const MIN_LIFETIME = 20000
 const MAX_LIFETIME = 60000

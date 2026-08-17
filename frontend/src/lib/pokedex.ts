@@ -131,9 +131,24 @@ export const ROSTER = {
   totodile: 158,
   celebi: 251,
   rayquaza: 384,
-  dialga: 483
+  dialga: 483,
+  mewtwo: 150,
+  mew: 151,
+  umbreon: 197,
+  tyranitar: 248,
+  blaziken: 257,
+  gardevoir: 282,
+  garchomp: 445,
+  lucario: 448,
+  greninja: 658,
+  articuno: 144,
+  zapdos: 145,
+  moltres: 146,
+  lugia: 249,
+  hooh: 250,
+  absol: 359,
+  mimikyu: 778
 }
-
 export const CATEGORY_TYPE: Record<string, ElementType> = {
   Medicine: "water",
   Poetry: "fairy",

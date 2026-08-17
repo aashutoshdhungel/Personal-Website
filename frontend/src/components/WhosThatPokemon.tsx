@@ -19,7 +19,12 @@ export default function WhosThatPokemon() {
 
   const [attempts, setAttempts] = useState(0)
   const [score, setScore] = useState(0)
-  const [bestScore, setBestScore] = useState(0)
+  
+  // Fix #3: Lazy initialization for localStorage to prevent layout flicker
+  const [bestScore, setBestScore] = useState(() => {
+    if (typeof window === "undefined") return 0
+    return Number(localStorage.getItem(BEST_SCORE_KEY)) || 0
+  })
 
   const [scoreAnimation, setScoreAnimation] = useState(false)
   const [bestAnimation, setBestAnimation] = useState(false)
@@ -37,13 +42,6 @@ export default function WhosThatPokemon() {
     const initialChoice = getRandomPokemon()
     setChoice(initialChoice)
     setNextChoice(getRandomPokemon(initialChoice.id))
-
-    const savedBest = Number(localStorage.getItem(BEST_SCORE_KEY)) || 0
-    setBestScore(savedBest)
-
-    requestAnimationFrame(() => {
-      inputRef.current?.focus()
-    })
 
     return () => {
       isMountedRef.current = false
@@ -72,8 +70,8 @@ export default function WhosThatPokemon() {
     setBestAnimation(false)
 
     requestAnimationFrame(() => {
-      if (isMountedRef.current) {
-        inputRef.current?.focus()
+      if (isMountedRef.current && document.activeElement === inputRef.current) {
+        inputRef.current?.focus({ preventScroll: true })
       }
     })
   }
@@ -85,6 +83,8 @@ export default function WhosThatPokemon() {
       return
     }
 
+    inputRef.current?.focus({ preventScroll: true })
+
     const nextAttempts = attempts + 1
     setAttempts(nextAttempts)
 
@@ -94,20 +94,23 @@ export default function WhosThatPokemon() {
     const isCorrect = normalizedInput === normalizedTarget
 
     if (isCorrect) {
-      const nextScore = score + 1
+      // Fix #2: Functional score update prevents stale closure bugs
+      setScore((prevScore) => {
+        const nextScore = prevScore + 1
+        if (nextScore > bestScore) {
+          setBestScore(nextScore)
+          setBestAnimation(true)
+          localStorage.setItem(BEST_SCORE_KEY, String(nextScore))
+        }
+        return nextScore
+      })
 
-      setScore(nextScore)
       setResult("correct")
       setScoreAnimation(true)
-
       playSuccess()
 
-      if (nextScore > bestScore) {
-        setBestScore(nextScore)
-        setBestAnimation(true)
-        localStorage.setItem(BEST_SCORE_KEY, String(nextScore))
-      }
-
+      // Fix #1: Clear previous timer before setting a new one
+      if (refreshTimerRef.current) clearTimeout(refreshTimerRef.current)
       refreshTimerRef.current = setTimeout(refreshCard, 2000)
       return
     }
@@ -120,6 +123,7 @@ export default function WhosThatPokemon() {
     if (nextAttempts >= 2) {
       setResult("failed")
       setScore(0)
+      if (refreshTimerRef.current) clearTimeout(refreshTimerRef.current)
       refreshTimerRef.current = setTimeout(refreshCard, 2000)
       return
     }
@@ -129,7 +133,7 @@ export default function WhosThatPokemon() {
 
     requestAnimationFrame(() => {
       if (isMountedRef.current) {
-        inputRef.current?.focus()
+        inputRef.current?.focus({ preventScroll: true })
       }
     })
   }
@@ -173,12 +177,12 @@ export default function WhosThatPokemon() {
               </div>
             </div>
 
-            <div className={styles.actionArea} style={{ position: "relative" }}>
+            {/* Fix #4: Added aria-live for accessibility */}
+            <div className={styles.actionArea} style={{ position: "relative" }} aria-live="polite">
               {scoreAnimation && result === "correct" && (
                 <span className={styles.scorePop}>+1</span>
               )}
 
-              {/* Display answer banner when revealed */}
               {result === "correct" && (
                 <div className={`${styles.answer} ${styles.correctAnswer}`}>
                   <span>Correct!</span>
@@ -192,22 +196,7 @@ export default function WhosThatPokemon() {
                 </div>
               )}
 
-              {/* Form stays mounted in exact position. When resolved, visually overlays 
-                  transparently so input remains focused and soft-keyboard stays open. */}
-              <form
-                className={styles.form}
-                onSubmit={submitGuess}
-                style={
-                  isResolved
-                    ? {
-                        opacity: 0,
-                        pointerEvents: "none",
-                        position: "absolute",
-                        inset: 0,
-                      }
-                    : undefined
-                }
-              >
+              <form className={styles.form} onSubmit={submitGuess}>
                 <input
                   ref={inputRef}
                   value={guess}
@@ -218,7 +207,12 @@ export default function WhosThatPokemon() {
                   readOnly={isResolved}
                 />
 
-                <button type="submit" tabIndex={isResolved ? -1 : 0}>
+                <button
+                  type="submit"
+                  tabIndex={isResolved ? -1 : 0}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onTouchStart={(e) => e.preventDefault()}
+                >
                   Go
                 </button>
 
